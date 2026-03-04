@@ -1,4 +1,7 @@
-// دمج بيانات المساقات
+// ملف app.js - منصة المهندس نادر التعليمية
+// جميع الحقوق محفوظة © 2026
+
+// ==================== بيانات المساقات ====================
 const courses = {
     // الفصل الأول
     biology: { 
@@ -103,13 +106,21 @@ const courses = {
         ]}
 };
 
+// ==================== الدوال الأساسية ====================
+
 // دالة تحديث المحتوى
 function animatePage(html) {
-    document.getElementById("main").innerHTML = html;
+    const mainElement = document.getElementById("main");
+    if (mainElement) {
+        mainElement.innerHTML = html;
+    } else {
+        console.error("العنصر main غير موجود!");
+    }
 }
 
 // الصفحة الرئيسية
 function showDashboard() {
+    console.log("جاري تحميل الصفحة الرئيسية...");
     animatePage(`
         <h1 class="page-title">
             <i class="fas fa-crown"></i>
@@ -117,7 +128,7 @@ function showDashboard() {
             <i class="fas fa-crown"></i>
         </h1>
 
-        <div class="card" style="margin-bottom: 20px;">
+        <div class="card" style="margin-bottom: 20px; cursor: default;" onclick="void(0)">
             <i class="fas fa-user-nurse"></i>
             <h2>تمريض - سنة أولى</h2>
         </div>
@@ -156,13 +167,15 @@ function openSemester(sem) {
     `;
 
     list.forEach(key => {
-        html += `
-            <div class="card" onclick="openCourse('${key}')">
-                <i class="fas ${courses[key].icon}"></i>
-                <h3>${courses[key].title}</h3>
-                <span class="code">${courses[key].code}</span>
-            </div>
-        `;
+        if (courses[key]) {
+            html += `
+                <div class="card" onclick="openCourse('${key}')">
+                    <i class="fas ${courses[key].icon}"></i>
+                    <h3>${courses[key].title}</h3>
+                    <span class="code">${courses[key].code}</span>
+                </div>
+            `;
+        }
     });
 
     html += "</div>";
@@ -172,6 +185,11 @@ function openSemester(sem) {
 // فتح مساق معين
 function openCourse(key) {
     const course = courses[key];
+    if (!course) {
+        alert("المساق غير موجود!");
+        showDashboard();
+        return;
+    }
     
     let html = `
         <button class="back-button" onclick="showDashboard()">
@@ -208,14 +226,19 @@ function openCourse(key) {
 
 // تبديل التبويبات
 function switchTab(el, courseKey, type) {
+    // إزالة الكلاس النشط من جميع التبويبات
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    el.classList.add("active");
+    // إضافة الكلاس النشط للتبويب المحدد
+    if (el) el.classList.add("active");
+    // تحميل محتوى التبويب
     loadTabContent(courseKey, type);
 }
 
 // تحميل محتوى التبويب
 function loadTabContent(courseKey, type) {
     const course = courses[courseKey];
+    if (!course) return;
+    
     let html = '';
 
     if (type === 'books') {
@@ -227,34 +250,44 @@ function loadTabContent(courseKey, type) {
                 </div>
         `;
 
-        course.books.forEach(book => {
-            if (book.coming) {
-                html += `
-                    <div class="book-button" onclick="alert('سيتم إضافة الرابط قريباً')" style="cursor: pointer;">
-                        <i class="fas fa-book-open"></i>
-                        <span>${book.name}</span>
-                        <div class="click-here">
-                            <i class="fas fa-clock"></i>
-                            قريباً
+        if (course.books && course.books.length > 0) {
+            course.books.forEach(book => {
+                if (book.coming) {
+                    html += `
+                        <div class="book-button" onclick="alert('سيتم إضافة الرابط قريباً')" style="cursor: pointer;">
+                            <i class="fas fa-book-open"></i>
+                            <span>${book.name}</span>
+                            <div class="click-here">
+                                <i class="fas fa-clock"></i>
+                                قريباً
+                            </div>
                         </div>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <a href="${book.link}" class="book-button" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-book-open"></i>
-                        <span>${book.name}</span>
-                        <div class="click-here">
-                            <i class="fas fa-hand-pointer"></i>
-                            تحميل
-                        </div>
-                    </a>
-                `;
-            }
-        });
+                    `;
+                } else {
+                    html += `
+                        <a href="${book.link}" class="book-button" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-book-open"></i>
+                            <span>${book.name}</span>
+                            <div class="click-here">
+                                <i class="fas fa-hand-pointer"></i>
+                                تحميل
+                            </div>
+                        </a>
+                    `;
+                }
+            });
+        } else {
+            html += `
+                <div class="info-badge">
+                    <i class="fas fa-info-circle"></i>
+                    لا توجد كتب متاحة حالياً
+                </div>
+            `;
+        }
 
         html += `</div>`;
     } else {
+        // بيانات وهمية للملخصات والاختبارات والتقارير
         const items = {
             summaries: [
                 { name: "ملخص الوحدة الأولى", file: "#" },
@@ -274,30 +307,55 @@ function loadTabContent(courseKey, type) {
         }[type] || [];
 
         html = '<div class="books-section">';
+        
+        // عنوان القسم
+        let sectionIcon = 'fa-file-alt';
+        let sectionTitle = 'الملخصات';
+        
+        if (type === 'exams') {
+            sectionIcon = 'fa-question-circle';
+            sectionTitle = 'الاختبارات';
+        } else if (type === 'reports') {
+            sectionIcon = 'fa-flask';
+            sectionTitle = 'التقارير';
+        }
+        
         html += `<div class="section-title">
-                    <i class="fas ${type === 'summaries' ? 'fa-file-alt' : type === 'exams' ? 'fa-question-circle' : 'fa-flask'}"></i>
-                    <span>${type === 'summaries' ? 'الملخصات' : type === 'exams' ? 'الاختبارات' : 'التقارير'}</span>
+                    <i class="fas ${sectionIcon}"></i>
+                    <span>${sectionTitle}</span>
                 </div>`;
 
-        items.forEach(item => {
-            html += `
-                <div class="content-card">
-                    <div class="content-info">
-                        <i class="fas fa-file-pdf"></i>
-                        <h4>${item.name}</h4>
+        if (items.length > 0) {
+            items.forEach(item => {
+                html += `
+                    <div class="content-card">
+                        <div class="content-info">
+                            <i class="fas fa-file-pdf"></i>
+                            <h4>${item.name}</h4>
+                        </div>
+                        <a href="#" class="download-btn" onclick="alert('سيتم إضافة الرابط قريباً'); return false;">
+                            <i class="fas fa-download"></i>
+                            تحميل
+                        </a>
                     </div>
-                    <a href="#" class="download-btn" onclick="alert('سيتم إضافة الرابط قريباً'); return false;">
-                        <i class="fas fa-download"></i>
-                        تحميل
-                    </a>
+                `;
+            });
+        } else {
+            html += `
+                <div class="info-badge">
+                    <i class="fas fa-info-circle"></i>
+                    لا توجد ${sectionTitle} متاحة حالياً
                 </div>
             `;
-        });
+        }
 
         html += '</div>';
     }
 
-    document.getElementById("tabContent").innerHTML = html;
+    const tabContent = document.getElementById("tabContent");
+    if (tabContent) {
+        tabContent.innerHTML = html;
+    }
 }
 
 // البحث الشامل
@@ -321,15 +379,16 @@ function globalSearch(val) {
         </button>
         <h2 class="course-title">
             <i class="fas fa-search"></i>
-            نتائج (${results.length})
+            نتائج البحث (${results.length})
         </h2>
     `;
 
     if (results.length === 0) {
         html += `
-            <div class="card" style="text-align: center; padding: 30px;">
+            <div class="card" style="text-align: center; padding: 30px; cursor: default;" onclick="void(0)">
                 <i class="fas fa-frown" style="font-size: 2rem;"></i>
                 <h3>لا توجد نتائج</h3>
+                <p style="color: #666; margin-top: 10px;">جرب كلمات بحث أخرى</p>
             </div>
         `;
     } else {
@@ -349,7 +408,24 @@ function globalSearch(val) {
     animatePage(html);
 }
 
-// بدء التطبيق عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    showDashboard();
-});
+// ==================== تشغيل التطبيق ====================
+
+// الطريقة الآمنة لتشغيل التطبيق بعد تحميل الصفحة
+(function initApp() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("تم تحميل DOM، بدء التطبيق...");
+            showDashboard();
+        });
+    } else {
+        console.log("الصفحة محملة بالفعل، بدء التطبيق...");
+        showDashboard();
+    }
+})();
+
+// تصدير الدوال للاستخدام العام (للبحث من الـ HTML)
+window.showDashboard = showDashboard;
+window.openSemester = openSemester;
+window.openCourse = openCourse;
+window.switchTab = switchTab;
+window.globalSearch = globalSearch;
