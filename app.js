@@ -1,6 +1,5 @@
-// بيانات المساقات
+// دمج بيانات المساقات
 const courses = {
-    // الفصل الأول
     biology: { 
         title: "الأحياء", 
         icon: "fa-dna", 
@@ -51,7 +50,6 @@ const courses = {
             { name: "قاموس المصطلحات الطبية", link: "#", year: "2024", coming: true }
         ]},
     
-    // الفصل الثاني
     nursing_practical: { 
         title: "تمريض عملي", 
         icon: "fa-hospital-user", 
@@ -103,12 +101,10 @@ const courses = {
         ]}
 };
 
-// دالة تحديث المحتوى
 function animatePage(html) {
     document.getElementById("main").innerHTML = html;
 }
 
-// الصفحة الرئيسية
 function showDashboard() {
     animatePage(`
         <h1 class="page-title">
@@ -138,7 +134,6 @@ function showDashboard() {
     `);
 }
 
-// فتح فصل دراسي
 function openSemester(sem) {
     const list = sem === 1 ? 
         ["biology", "chemistry", "physics", "anatomy", "physiology", "biochemistry", "med_terms"] :
@@ -169,7 +164,6 @@ function openSemester(sem) {
     animatePage(html);
 }
 
-// فتح مساق معين
 function openCourse(key) {
     const course = courses[key];
     
@@ -206,14 +200,12 @@ function openCourse(key) {
     loadTabContent(key, 'books');
 }
 
-// تبديل التبويبات
 function switchTab(el, courseKey, type) {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     el.classList.add("active");
     loadTabContent(courseKey, type);
 }
 
-// تحميل محتوى التبويب
 function loadTabContent(courseKey, type) {
     const course = courses[courseKey];
     let html = '';
@@ -300,7 +292,6 @@ function loadTabContent(courseKey, type) {
     document.getElementById("tabContent").innerHTML = html;
 }
 
-// البحث الشامل
 function globalSearch(val) {
     val = val.toLowerCase().trim();
     
