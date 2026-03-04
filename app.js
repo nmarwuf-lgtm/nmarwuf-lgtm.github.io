@@ -1,4 +1,4 @@
-// دمج بيانات المساقات مع المحاضرات
+// دمج بيانات المساقات
 const courses = {
     biology: { 
         title: "الأحياء", 
@@ -139,36 +139,351 @@ const courses = {
         lectures: []}
 };
 
-// متغيرات للتنقل بين الصفحات
-let navigationHistory = [];
-let currentSemester = null;
-let currentCourse = null;
-let currentTab = 'books';
+// إضافة CSS للثيمات وتصغير الايقونات
+const style = document.createElement('style');
+style.textContent = `
+    /* ثيم أسود وذهبي أساسي */
+    :root {
+        --primary-color: #D4AF37;
+        --primary-dark: #AA8C2C;
+        --accent-color: #FFFFFF;
+        --bg-gradient-start: #000000;
+        --bg-gradient-end: #1a1a1a;
+        --card-bg: #2d2d2d;
+        --text-color: #D4AF37;
+        --text-light: #cccccc;
+        --border-color: #D4AF37;
+    }
+    
+    body {
+        background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+        color: var(--text-color);
+        font-family: 'Cairo', sans-serif;
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* تصغير الايقونات وجعلها responsive */
+    .card i {
+        font-size: clamp(1.2rem, 4vw, 1.8rem) !important;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+    
+    .book-button i {
+        font-size: clamp(1rem, 3vw, 1.3rem) !important;
+        margin-left: 10px;
+    }
+    
+    .section-title i {
+        font-size: clamp(1.1rem, 3.5vw, 1.5rem) !important;
+    }
+    
+    .content-info i {
+        font-size: clamp(1.1rem, 3.5vw, 1.5rem) !important;
+    }
+    
+    .tab i {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem) !important;
+        margin-left: 5px;
+    }
+    
+    .click-here i {
+        font-size: 0.9rem !important;
+        margin-left: 3px;
+    }
+    
+    .page-title i {
+        font-size: clamp(1.5rem, 5vw, 2rem) !important;
+        color: var(--primary-color);
+    }
+    
+    /* تنسيق البطاقات */
+    .card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(212, 175, 55, 0.2);
+    }
+    
+    .card h3 {
+        color: var(--text-color);
+        margin-bottom: 10px;
+        font-size: clamp(1rem, 3.5vw, 1.2rem);
+    }
+    
+    /* تنسيق التبويبات */
+    .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .tab {
+        background: var(--card-bg);
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+    
+    .tab.active {
+        background: var(--primary-color);
+        color: #000000;
+        border-color: var(--primary-color);
+    }
+    
+    .tab.active i {
+        color: #000000 !important;
+    }
+    
+    .tab:hover {
+        background: var(--primary-color);
+        color: #000000;
+    }
+    
+    .tab:hover i {
+        color: #000000 !important;
+    }
+    
+    /* تنسيق أزرار الكتب */
+    .book-button {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        background: var(--card-bg);
+        border-radius: 10px;
+        margin-bottom: 10px;
+        text-decoration: none;
+        color: var(--text-color);
+        transition: background 0.3s;
+        border: 1px solid var(--border-color);
+        font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+    
+    .book-button:hover {
+        background: #3d3d3d;
+    }
+    
+    .click-here {
+        margin-right: auto;
+        background: var(--primary-color) !important;
+        color: #000000 !important;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    
+    .click-here i {
+        color: #000000 !important;
+    }
+    
+    /* تنسيق الصفحة الرئيسية */
+    .page-title {
+        text-align: center;
+        color: var(--text-color);
+        margin-bottom: 30px;
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .code {
+        display: inline-block;
+        background: #3d3d3d;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--text-light);
+        border: 1px solid var(--border-color);
+    }
+    
+    /* تنسيق أزرار الرجوع */
+    .back-button {
+        background: var(--primary-color);
+        color: #000000;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        transition: background 0.3s;
+        font-weight: 600;
+    }
+    
+    .back-button:hover {
+        background: var(--primary-dark);
+    }
+    
+    .back-button i {
+        font-size: 0.9rem !important;
+        margin-left: 5px;
+    }
+    
+    /* تنسيق محتوى التبويبات */
+    .books-section {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        border: 1px solid var(--border-color);
+    }
+    
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        color: var(--text-color);
+        font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 10px;
+    }
+    
+    .content-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 15px;
+        background: #3d3d3d;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        border: 1px solid var(--border-color);
+    }
+    
+    .content-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .content-info h4 {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        color: var(--text-color);
+    }
+    
+    .download-btn {
+        background: var(--primary-color);
+        color: #000000;
+        padding: 6px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    
+    .download-btn i {
+        font-size: 0.8rem !important;
+        margin-left: 3px;
+        color: #000000 !important;
+    }
+    
+    /* تنسيق الشبكة */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    
+    /* تنسيق روابط يوتيوب وجوجل درايف */
+    .fab.fa-youtube {
+        color: #FF0000 !important;
+    }
+    
+    .fab.fa-google-drive {
+        color: #34A853 !important;
+    }
+    
+    /* تنسيق شريط البحث */
+    .search-container {
+        margin-bottom: 20px;
+    }
+    
+    .search-input {
+        width: 100%;
+        padding: 12px 20px;
+        border-radius: 30px;
+        border: 2px solid var(--border-color);
+        background: var(--card-bg);
+        color: var(--text-color);
+        font-size: 1rem;
+        outline: none;
+    }
+    
+    .search-input::placeholder {
+        color: var(--text-light);
+    }
+    
+    /* تنسيق للشاشات الصغيرة */
+    @media (max-width: 768px) {
+        body {
+            padding: 10px;
+        }
+        
+        .grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .tabs {
+            flex-direction: column;
+        }
+        
+        .tab {
+            text-align: center;
+            width: 100%;
+        }
+        
+        .book-button {
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .click-here {
+            width: 100%;
+            text-align: center;
+            margin-right: 0;
+        }
+    }
+    
+    /* تنسيق للشاشات المتوسطة */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+`;
+
+document.head.appendChild(style);
 
 function animatePage(html) {
     document.getElementById("main").innerHTML = html;
 }
 
-function goBack() {
-    if (navigationHistory.length > 0) {
-        const lastState = navigationHistory.pop();
-        if (lastState.type === 'semester') {
-            showSemester(lastState.semester);
-        } else if (lastState.type === 'course') {
-            showCourse(lastState.courseKey, lastState.tab);
-        } else {
-            showDashboard();
-        }
-    } else {
-        showDashboard();
-    }
-}
-
 function showDashboard() {
-    navigationHistory = []; // مسح التاريخ عند العودة للرئيسية
-    currentSemester = null;
-    currentCourse = null;
-    
     animatePage(`
         <h1 class="page-title">
             <i class="fas fa-crown"></i>
@@ -176,26 +491,20 @@ function showDashboard() {
             <i class="fas fa-crown"></i>
         </h1>
 
-        <div class="theme-selector">
-            <button onclick="setTheme('blue')" class="theme-btn blue" title="أزرق"></button>
-            <button onclick="setTheme('gold')" class="theme-btn gold" title="ذهبي"></button>
-            <button onclick="setTheme('black')" class="theme-btn black" title="أسود"></button>
-        </div>
-
         <div class="card" style="margin-bottom: 20px;">
-            <i class="fas fa-user-nurse icon-medium"></i>
+            <i class="fas fa-user-nurse"></i>
             <h2>تمريض - سنة أولى</h2>
         </div>
 
         <div class="grid">
             <div class="card" onclick="openSemester(1)">
-                <i class="fas fa-calendar-alt icon-small"></i>
+                <i class="fas fa-calendar-alt"></i>
                 <h3>الفصل الأول</h3>
                 <span class="code">7 مساقات</span>
             </div>
 
             <div class="card" onclick="openSemester(2)">
-                <i class="fas fa-calendar-check icon-small"></i>
+                <i class="fas fa-calendar-check"></i>
                 <h3>الفصل الثاني</h3>
                 <span class="code">7 مساقات</span>
             </div>
@@ -204,18 +513,12 @@ function showDashboard() {
 }
 
 function openSemester(sem) {
-    navigationHistory.push({ type: 'dashboard' });
-    currentSemester = sem;
-    showSemester(sem);
-}
-
-function showSemester(sem) {
     const list = sem === 1 ? 
         ["biology", "chemistry", "physics", "anatomy", "physiology", "biochemistry", "med_terms"] :
         ["nursing_practical", "nursing1", "safety", "microbio", "biochem2", "quran", "anatomy2"];
 
     let html = `
-        <button class="back-button" onclick="goBack()">
+        <button class="back-button" onclick="showDashboard()">
             <i class="fas fa-arrow-right"></i>
             رجوع
         </button>
@@ -228,7 +531,7 @@ function showSemester(sem) {
     list.forEach(key => {
         html += `
             <div class="card" onclick="openCourse('${key}')">
-                <i class="fas ${courses[key].icon} icon-medium"></i>
+                <i class="fas ${courses[key].icon}"></i>
                 <h3>${courses[key].title}</h3>
                 <span class="code">${courses[key].code}</span>
             </div>
@@ -240,38 +543,31 @@ function showSemester(sem) {
 }
 
 function openCourse(key) {
-    navigationHistory.push({ type: 'semester', semester: currentSemester });
-    currentCourse = key;
-    showCourse(key, 'books');
-}
-
-function showCourse(key, tab) {
     const course = courses[key];
-    currentTab = tab;
     
     let html = `
-        <button class="back-button" onclick="goBack()">
+        <button class="back-button" onclick="showDashboard()">
             <i class="fas fa-arrow-right"></i>
             رجوع
         </button>
         
         <h2 class="course-title">
-            <i class="fas ${course.icon} icon-small"></i>
+            <i class="fas ${course.icon}"></i>
             ${course.title}
         </h2>
 
         <div class="tabs">
-            <div class="tab ${tab === 'books' ? 'active' : ''}" onclick="switchTab(this, '${key}', 'books')">
-                <i class="fas fa-book icon-tiny"></i> كتب
+            <div class="tab active" onclick="switchTab(this, '${key}', 'books')">
+                <i class="fas fa-book"></i> كتب
             </div>
-            <div class="tab ${tab === 'summaries' ? 'active' : ''}" onclick="switchTab(this, '${key}', 'summaries')">
-                <i class="fas fa-file-alt icon-tiny"></i> ملخصات
+            <div class="tab" onclick="switchTab(this, '${key}', 'summaries')">
+                <i class="fas fa-file-alt"></i> ملخصات
             </div>
-            <div class="tab ${tab === 'exams' ? 'active' : ''}" onclick="switchTab(this, '${key}', 'exams')">
-                <i class="fas fa-question-circle icon-tiny"></i> اختبارات
+            <div class="tab" onclick="switchTab(this, '${key}', 'exams')">
+                <i class="fas fa-question-circle"></i> اختبارات
             </div>
-            <div class="tab ${tab === 'lectures' ? 'active' : ''}" onclick="switchTab(this, '${key}', 'lectures')">
-                <i class="fas fa-video icon-tiny"></i> محاضرات
+            <div class="tab" onclick="switchTab(this, '${key}', 'lectures')">
+                <i class="fas fa-video"></i> محاضرات
             </div>
         </div>
 
@@ -279,13 +575,12 @@ function showCourse(key, tab) {
     `;
 
     animatePage(html);
-    loadTabContent(key, tab);
+    loadTabContent(key, 'books');
 }
 
 function switchTab(el, courseKey, type) {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     el.classList.add("active");
-    currentTab = type;
     loadTabContent(courseKey, type);
 }
 
@@ -297,7 +592,7 @@ function loadTabContent(courseKey, type) {
         html = `
             <div class="books-section">
                 <div class="section-title">
-                    <i class="fas fa-book icon-small"></i>
+                    <i class="fas fa-book"></i>
                     <span>الكتب الدراسية</span>
                 </div>
         `;
@@ -306,10 +601,10 @@ function loadTabContent(courseKey, type) {
             if (book.coming) {
                 html += `
                     <div class="book-button" onclick="alert('سيتم إضافة الرابط قريباً')" style="cursor: pointer;">
-                        <i class="fas fa-book-open icon-small"></i>
+                        <i class="fas fa-book-open"></i>
                         <span>${book.name}</span>
                         <div class="click-here">
-                            <i class="fas fa-clock icon-tiny"></i>
+                            <i class="fas fa-clock"></i>
                             قريباً
                         </div>
                     </div>
@@ -317,10 +612,10 @@ function loadTabContent(courseKey, type) {
             } else {
                 html += `
                     <a href="${book.link}" class="book-button" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-book-open icon-small"></i>
+                        <i class="fas fa-book-open"></i>
                         <span>${book.name}</span>
                         <div class="click-here">
-                            <i class="fas fa-hand-pointer icon-tiny"></i>
+                            <i class="fas fa-hand-pointer"></i>
                             تحميل
                         </div>
                     </a>
@@ -334,7 +629,7 @@ function loadTabContent(courseKey, type) {
         html = `
             <div class="books-section">
                 <div class="section-title">
-                    <i class="fas fa-video icon-small"></i>
+                    <i class="fas fa-video"></i>
                     <span>المحاضرات المسجلة</span>
                 </div>
         `;
@@ -344,10 +639,10 @@ function loadTabContent(courseKey, type) {
                 const icon = lecture.type === 'youtube' ? 'fa-youtube' : 'fa-google-drive';
                 html += `
                     <a href="${lecture.link}" class="book-button" target="_blank" rel="noopener noreferrer">
-                        <i class="fab ${icon} icon-small" style="color: ${lecture.type === 'youtube' ? '#FF0000' : '#34A853'};"></i>
+                        <i class="fab ${icon}" style="color: ${lecture.type === 'youtube' ? '#FF0000' : '#34A853'};"></i>
                         <span>${lecture.name}</span>
                         <div class="click-here">
-                            <i class="fas fa-hand-pointer icon-tiny"></i>
+                            <i class="fas fa-hand-pointer"></i>
                             مشاهدة
                         </div>
                     </a>
@@ -357,7 +652,7 @@ function loadTabContent(courseKey, type) {
             html += `
                 <div class="content-card" style="justify-content: center; text-align: center;">
                     <div class="content-info">
-                        <i class="fas fa-video-slash icon-medium" style="color: #95a5a6;"></i>
+                        <i class="fas fa-video-slash" style="font-size: 2rem; color: #95a5a6;"></i>
                         <h4 style="color: #7f8c8d;">لا توجد محاضرات متاحة حالياً</h4>
                     </div>
                 </div>
@@ -382,7 +677,7 @@ function loadTabContent(courseKey, type) {
 
         html = '<div class="books-section">';
         html += `<div class="section-title">
-                    <i class="fas ${type === 'summaries' ? 'fa-file-alt' : 'fa-question-circle'} icon-small"></i>
+                    <i class="fas ${type === 'summaries' ? 'fa-file-alt' : 'fa-question-circle'}"></i>
                     <span>${type === 'summaries' ? 'الملخصات' : 'الاختبارات'}</span>
                 </div>`;
 
@@ -390,11 +685,11 @@ function loadTabContent(courseKey, type) {
             html += `
                 <div class="content-card">
                     <div class="content-info">
-                        <i class="fas fa-file-pdf icon-small"></i>
+                        <i class="fas fa-file-pdf"></i>
                         <h4>${item.name}</h4>
                     </div>
                     <a href="#" class="download-btn" onclick="alert('سيتم إضافة الرابط قريباً'); return false;">
-                        <i class="fas fa-download icon-tiny"></i>
+                        <i class="fas fa-download"></i>
                         تحميل
                     </a>
                 </div>
@@ -421,12 +716,12 @@ function globalSearch(val) {
     );
 
     let html = `
-        <button class="back-button" onclick="goBack()">
+        <button class="back-button" onclick="showDashboard()">
             <i class="fas fa-arrow-right"></i>
             رجوع
         </button>
         <h2 class="course-title">
-            <i class="fas fa-search icon-small"></i>
+            <i class="fas fa-search"></i>
             نتائج (${results.length})
         </h2>
     `;
@@ -434,7 +729,7 @@ function globalSearch(val) {
     if (results.length === 0) {
         html += `
             <div class="card" style="text-align: center; padding: 30px;">
-                <i class="fas fa-frown icon-large" style="font-size: 2rem;"></i>
+                <i class="fas fa-frown" style="font-size: 2rem;"></i>
                 <h3>لا توجد نتائج</h3>
             </div>
         `;
@@ -443,7 +738,7 @@ function globalSearch(val) {
         results.forEach(key => {
             html += `
                 <div class="card" onclick="openCourse('${key}')">
-                    <i class="fas ${courses[key].icon} icon-medium"></i>
+                    <i class="fas ${courses[key].icon}"></i>
                     <h3>${courses[key].title}</h3>
                     <span class="code">${courses[key].code}</span>
                 </div>
@@ -455,180 +750,5 @@ function globalSearch(val) {
     animatePage(html);
 }
 
-// دوال تغيير الثيم
-function setTheme(theme) {
-    const root = document.documentElement;
-    
-    // إزالة جميع كلاسات الثيم
-    document.body.classList.remove('theme-blue', 'theme-gold', 'theme-black');
-    
-    switch(theme) {
-        case 'blue':
-            document.body.classList.add('theme-blue');
-            root.style.setProperty('--primary-color', '#3498db');
-            root.style.setProperty('--primary-dark', '#2980b9');
-            root.style.setProperty('--accent-color', '#f1c40f');
-            break;
-        case 'gold':
-            document.body.classList.add('theme-gold');
-            root.style.setProperty('--primary-color', '#D4AF37');
-            root.style.setProperty('--primary-dark', '#AA8C2C');
-            root.style.setProperty('--accent-color', '#FFFFFF');
-            break;
-        case 'black':
-            document.body.classList.add('theme-black');
-            root.style.setProperty('--primary-color', '#2C3E50');
-            root.style.setProperty('--primary-dark', '#1A252F');
-            root.style.setProperty('--accent-color', '#3498db');
-            break;
-    }
-    
-    // حفظ الثيم المختار
-    localStorage.setItem('selectedTheme', theme);
-}
-
-// تحميل الثيم المحفوظ
-function loadSavedTheme() {
-    const savedTheme = localStorage.getItem('selectedTheme') || 'blue';
-    setTheme(savedTheme);
-}
-
-// إضافة كلاسات CSS للثيمات
-const style = document.createElement('style');
-style.textContent = `
-    :root {
-        --primary-color: #3498db;
-        --primary-dark: #2980b9;
-        --accent-color: #f1c40f;
-        --bg-gradient-start: #f5f7fa;
-        --bg-gradient-end: #c3cfe2;
-        --card-bg: white;
-        --text-color: #2c3e50;
-        --text-light: #7f8c8d;
-    }
-    
-    body.theme-blue {
-        --primary-color: #3498db;
-        --primary-dark: #2980b9;
-        --accent-color: #f1c40f;
-    }
-    
-    body.theme-gold {
-        --primary-color: #D4AF37;
-        --primary-dark: #AA8C2C;
-        --accent-color: #FFFFFF;
-        --bg-gradient-start: #000000;
-        --bg-gradient-end: #1a1a1a;
-        --card-bg: #2d2d2d;
-        --text-color: #D4AF37;
-        --text-light: #cccccc;
-    }
-    
-    body.theme-gold .card {
-        background: #2d2d2d;
-        color: #D4AF37;
-        border: 1px solid #D4AF37;
-    }
-    
-    body.theme-gold .card h3 {
-        color: #D4AF37;
-    }
-    
-    body.theme-black {
-        --primary-color: #2C3E50;
-        --primary-dark: #1A252F;
-        --accent-color: #3498db;
-        --bg-gradient-start: #ecf0f1;
-        --bg-gradient-end: #bdc3c7;
-        --card-bg: white;
-        --text-color: #2c3e50;
-    }
-    
-    body {
-        background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-        color: var(--text-color);
-    }
-    
-    .card {
-        background: var(--card-bg);
-        color: var(--text-color);
-    }
-    
-    .icon-tiny {
-        font-size: 0.9rem !important;
-    }
-    
-    .icon-small {
-        font-size: 1.2rem !important;
-    }
-    
-    .icon-medium {
-        font-size: 1.5rem !important;
-    }
-    
-    .icon-large {
-        font-size: 2rem !important;
-    }
-    
-    .theme-selector {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-    
-    .theme-btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid white;
-        cursor: pointer;
-        transition: transform 0.3s;
-    }
-    
-    .theme-btn:hover {
-        transform: scale(1.1);
-    }
-    
-    .theme-btn.blue {
-        background: linear-gradient(135deg, #3498db, #2980b9);
-    }
-    
-    .theme-btn.gold {
-        background: linear-gradient(135deg, #D4AF37, #AA8C2C);
-    }
-    
-    .theme-btn.black {
-        background: linear-gradient(135deg, #2C3E50, #1A252F);
-    }
-    
-    .back-button {
-        background: var(--primary-color);
-    }
-    
-    .back-button:hover {
-        background: var(--primary-dark);
-    }
-    
-    .tab.active {
-        background: var(--primary-color);
-    }
-    
-    .download-btn {
-        background: var(--primary-color);
-    }
-    
-    .download-btn:hover {
-        background: var(--primary-dark);
-    }
-    
-    .click-here {
-        background: var(--accent-color) !important;
-    }
-`;
-
-document.head.appendChild(style);
-
-// بدء التطبيق مع تحميل الثيم المحفوظ
-loadSavedTheme();
+// بدء التطبيق
 showDashboard();
