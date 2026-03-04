@@ -139,20 +139,23 @@ const courses = {
         lectures: []}
 };
 
-// إضافة CSS للثيمات وتصغير الايقونات
+// إضافة CSS للثيمات المريحة وتصغير الايقونات
 const style = document.createElement('style');
 style.textContent = `
-    /* ثيم أسود وذهبي أساسي */
+    /* ثيم أساسي - أزرق مريح */
     :root {
-        --primary-color: #D4AF37;
-        --primary-dark: #AA8C2C;
-        --accent-color: #FFFFFF;
-        --bg-gradient-start: #000000;
-        --bg-gradient-end: #1a1a1a;
-        --card-bg: #2d2d2d;
-        --text-color: #D4AF37;
-        --text-light: #cccccc;
-        --border-color: #D4AF37;
+        --primary-color: #4A90E2;
+        --primary-dark: #357ABD;
+        --primary-light: #6BA5E8;
+        --accent-color: #50C878;
+        --bg-gradient-start: #E8F0FE;
+        --bg-gradient-end: #D1E2FC;
+        --card-bg: rgba(255, 255, 255, 0.95);
+        --text-color: #2C3E50;
+        --text-light: #5D6D7E;
+        --border-color: #BDC9D6;
+        --shadow-color: rgba(74, 144, 226, 0.2);
+        --hover-bg: #F0F7FF;
     }
     
     body {
@@ -162,6 +165,7 @@ style.textContent = `
         margin: 0;
         padding: 20px;
         min-height: 100vh;
+        transition: all 0.3s ease;
     }
     
     .container {
@@ -174,15 +178,23 @@ style.textContent = `
         font-size: clamp(1.2rem, 4vw, 1.8rem) !important;
         color: var(--primary-color);
         margin-bottom: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover i {
+        transform: scale(1.1);
+        color: var(--primary-dark);
     }
     
     .book-button i {
         font-size: clamp(1rem, 3vw, 1.3rem) !important;
         margin-left: 10px;
+        color: var(--primary-color);
     }
     
     .section-title i {
         font-size: clamp(1.1rem, 3.5vw, 1.5rem) !important;
+        color: var(--primary-color);
     }
     
     .content-info i {
@@ -202,29 +214,38 @@ style.textContent = `
     .page-title i {
         font-size: clamp(1.5rem, 5vw, 2rem) !important;
         color: var(--primary-color);
+        animation: gentlePulse 3s infinite;
+    }
+    
+    @keyframes gentlePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
     }
     
     /* تنسيق البطاقات */
     .card {
         background: var(--card-bg);
-        border-radius: 15px;
+        border-radius: 20px;
         padding: 20px;
         text-align: center;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 8px 20px var(--shadow-color);
+        transition: all 0.3s ease;
         cursor: pointer;
-        border: 1px solid var(--border-color);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
     }
     
     .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(212, 175, 55, 0.2);
+        box-shadow: 0 15px 30px var(--shadow-color);
+        background: var(--hover-bg);
     }
     
     .card h3 {
         color: var(--text-color);
         margin-bottom: 10px;
         font-size: clamp(1rem, 3.5vw, 1.2rem);
+        font-weight: 600;
     }
     
     /* تنسيق التبويبات */
@@ -239,65 +260,74 @@ style.textContent = `
     .tab {
         background: var(--card-bg);
         padding: 10px 20px;
-        border-radius: 25px;
+        border-radius: 30px;
         cursor: pointer;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
         font-weight: 600;
         border: 1px solid var(--border-color);
         color: var(--text-color);
         font-size: clamp(0.9rem, 3vw, 1rem);
+        backdrop-filter: blur(5px);
     }
     
     .tab.active {
         background: var(--primary-color);
-        color: #000000;
+        color: white;
         border-color: var(--primary-color);
+        box-shadow: 0 4px 12px var(--shadow-color);
     }
     
     .tab.active i {
-        color: #000000 !important;
+        color: white !important;
     }
     
     .tab:hover {
-        background: var(--primary-color);
-        color: #000000;
+        background: var(--primary-light);
+        color: white;
+        border-color: var(--primary-light);
     }
     
     .tab:hover i {
-        color: #000000 !important;
+        color: white !important;
     }
     
     /* تنسيق أزرار الكتب */
     .book-button {
         display: flex;
         align-items: center;
-        padding: 12px 15px;
+        padding: 15px 20px;
         background: var(--card-bg);
-        border-radius: 10px;
-        margin-bottom: 10px;
+        border-radius: 15px;
+        margin-bottom: 12px;
         text-decoration: none;
         color: var(--text-color);
-        transition: background 0.3s;
-        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         font-size: clamp(0.9rem, 3vw, 1rem);
+        backdrop-filter: blur(5px);
     }
     
     .book-button:hover {
-        background: #3d3d3d;
+        background: var(--hover-bg);
+        transform: translateX(-5px);
+        box-shadow: 0 8px 20px var(--shadow-color);
+        border-color: var(--primary-light);
     }
     
     .click-here {
         margin-right: auto;
-        background: var(--primary-color) !important;
-        color: #000000 !important;
-        padding: 5px 12px;
-        border-radius: 20px;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+        color: white !important;
+        padding: 6px 15px;
+        border-radius: 25px;
         font-size: 0.9rem;
         font-weight: 600;
+        box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
     }
     
     .click-here i {
-        color: #000000 !important;
+        color: white !important;
     }
     
     /* تنسيق الصفحة الرئيسية */
@@ -306,35 +336,37 @@ style.textContent = `
         color: var(--text-color);
         margin-bottom: 30px;
         font-size: clamp(1.5rem, 5vw, 2.5rem);
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
     }
     
     .code {
         display: inline-block;
-        background: #3d3d3d;
-        padding: 5px 12px;
-        border-radius: 20px;
+        background: rgba(74, 144, 226, 0.1);
+        padding: 5px 15px;
+        border-radius: 25px;
         font-size: 0.9rem;
-        color: var(--text-light);
-        border: 1px solid var(--border-color);
+        color: var(--primary-color);
+        border: 1px solid rgba(74, 144, 226, 0.2);
     }
     
     /* تنسيق أزرار الرجوع */
     .back-button {
-        background: var(--primary-color);
-        color: #000000;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        color: white;
         border: none;
-        padding: 8px 20px;
-        border-radius: 25px;
+        padding: 10px 25px;
+        border-radius: 30px;
         cursor: pointer;
         font-size: 1rem;
         margin-bottom: 20px;
-        transition: background 0.3s;
+        transition: all 0.3s ease;
         font-weight: 600;
+        box-shadow: 0 4px 12px var(--shadow-color);
     }
     
     .back-button:hover {
-        background: var(--primary-dark);
+        transform: translateX(-5px);
+        box-shadow: 0 8px 20px var(--shadow-color);
     }
     
     .back-button i {
@@ -345,10 +377,11 @@ style.textContent = `
     /* تنسيق محتوى التبويبات */
     .books-section {
         background: var(--card-bg);
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        border: 1px solid var(--border-color);
+        border-radius: 25px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
     }
     
     .section-title {
@@ -358,52 +391,67 @@ style.textContent = `
         margin-bottom: 20px;
         color: var(--text-color);
         font-size: clamp(1.1rem, 3.5vw, 1.3rem);
-        border-bottom: 2px solid var(--border-color);
-        padding-bottom: 10px;
+        border-bottom: 2px solid rgba(74, 144, 226, 0.2);
+        padding-bottom: 12px;
     }
     
     .content-card {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 12px 15px;
-        background: #3d3d3d;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        border: 1px solid var(--border-color);
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 15px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(74, 144, 226, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .content-card:hover {
+        background: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.1);
     }
     
     .content-info {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
     
     .content-info h4 {
         font-size: clamp(0.9rem, 3vw, 1rem);
         color: var(--text-color);
+        margin: 0;
     }
     
     .download-btn {
-        background: var(--primary-color);
-        color: #000000;
-        padding: 6px 15px;
-        border-radius: 20px;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        color: white;
+        padding: 8px 18px;
+        border-radius: 25px;
         text-decoration: none;
         font-size: 0.9rem;
         font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .download-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px var(--shadow-color);
     }
     
     .download-btn i {
         font-size: 0.8rem !important;
-        margin-left: 3px;
-        color: #000000 !important;
+        margin-left: 5px;
+        color: white !important;
     }
     
     /* تنسيق الشبكة */
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
         margin-top: 20px;
     }
@@ -411,26 +459,35 @@ style.textContent = `
     /* تنسيق روابط يوتيوب وجوجل درايف */
     .fab.fa-youtube {
         color: #FF0000 !important;
+        filter: drop-shadow(0 2px 4px rgba(255, 0, 0, 0.2));
     }
     
     .fab.fa-google-drive {
         color: #34A853 !important;
+        filter: drop-shadow(0 2px 4px rgba(52, 168, 83, 0.2));
     }
     
     /* تنسيق شريط البحث */
     .search-container {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
     
     .search-input {
         width: 100%;
-        padding: 12px 20px;
-        border-radius: 30px;
-        border: 2px solid var(--border-color);
+        padding: 15px 25px;
+        border-radius: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
         background: var(--card-bg);
         color: var(--text-color);
         font-size: 1rem;
         outline: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+    
+    .search-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px var(--shadow-color);
     }
     
     .search-input::placeholder {
