@@ -6,6 +6,12 @@ const courses = {
         code: "BIOL 101",
         books: [
             { name: "كتاب الأحياء - د. أيمن أبو مصطفى 2024", link: "https://www.mediafire.com/file/8oddlw5fw751nd2/Biology+Dr.+Ayman+Abu+Mustafa+2024.pdf/file", year: "2024" }
+        ],
+        lectures: [
+            { name: "محاضرة 1 - الجزء الأول", link: "https://www.youtube.com/watch?v=8COAdAXo6mo", type: "youtube" },
+            { name: "محاضرة 1 - الجزء الثاني", link: "https://www.youtube.com/watch?v=-EcD5MBMoiM", type: "youtube" },
+            { name: "محاضرة 2 - الجزء الأول", link: "https://www.youtube.com/watch?v=gZG1I2mVBFI", type: "youtube" },
+            { name: "محاضرة 2 - الجزء الثاني", link: "https://www.youtube.com/watch?v=gZG1I2mVBFI", type: "youtube" }
         ]},
     chemistry: { 
         title: "الكيمياء", 
@@ -13,6 +19,11 @@ const courses = {
         code: "CHEM 101",
         books: [
             { name: "كتاب الكيمياء", link: "https://drive.google.com/file/d/16NwS8HV1UizqrMnKnAAIOhth_6STxxff/view?usp=drivesdk", year: "2024" }
+        ],
+        lectures: [
+            { name: "محاضرة 1", link: "https://www.youtube.com/watch?v=QEBq2ujVl9k", type: "youtube" },
+            { name: "محاضرة 2 - الجزء الأول", link: "https://drive.google.com/file/d/1mYbo3lYhfrgPPNBlbPWvGVKbNDS4DPNS/view", type: "drive" },
+            { name: "محاضرة 2 - الجزء الثاني", link: "https://drive.google.com/file/d/1xUd0aEy4mXPDkghZmZvjSW6wUCW-WFkv/view", type: "drive" }
         ]},
     physics: { 
         title: "مقدمة التمريض", 
@@ -20,6 +31,10 @@ const courses = {
         code: "PHYS 101",
         books: [
             { name: "كتاب مقدمة التمريض", link: "https://drive.google.com/file/d/1MvpccHOlHV3XcPUrtB7uXDoKFdB5MlSr/view?usp=sharing", year: "2024" }
+        ],
+        lectures: [
+            { name: "محاضرة 1", link: "https://www.youtube.com/watch?v=apf3Jagp1ak&list=PLftkcFPCNYd1Fvio2pIx20w8I-z4Lp0YF&index=10", type: "youtube" },
+            { name: "محاضرة 2", link: "https://www.youtube.com/watch?v=QnK68q-yeGQ&list=PLftkcFPCNYd1Fvio2pIx20w8I-z4Lp0YF&index=9", type: "youtube" }
         ]},
     anatomy: { 
         title: "القضية الفلسطينية", 
@@ -27,6 +42,10 @@ const courses = {
         code: "ANAT 101",
         books: [
             { name: "كتاب القضية الفلسطينية", link: "https://drive.google.com/file/d/1HOyQGAJut0J7DGQTGTwoA_4l5qxRAshs/view?usp=drivesdk", year: "2024" }
+        ],
+        lectures: [
+            { name: "محاضرة 1", link: "https://www.youtube.com/watch?v=2KXiwod-doc", type: "youtube" },
+            { name: "محاضرة 2", link: "https://drive.google.com/file/d/14W1ToppqX7YtAv4N2_USjBHGbphMsuY-/view", type: "drive" }
         ]},
     physiology: { 
         title: "العقيدة الإسلامية", 
@@ -34,6 +53,10 @@ const courses = {
         code: "PHYL 101",
         books: [
             { name: "كتاب العقيدة الإسلامية", link: "https://drive.google.com/file/d/1Dp31f1IO5W7-3n5_08OnUCY1CRJe8giz/view?usp=sharing", year: "2024" }
+        ],
+        lectures: [
+            { name: "محاضرة 1", link: "https://drive.google.com/file/d/1-0LcO1NKGpS24Wsxh2HlOrbm2h8x0J9l/view", type: "drive" },
+            { name: "محاضرة 2", link: "https://drive.google.com/file/d/1TQwAck0RKeO7SVVf_gmCvpyAe8lamqBI/view", type: "drive" }
         ]},
     biochemistry: { 
         title: "اللغة العربية", 
@@ -41,6 +64,10 @@ const courses = {
         code: "BCHM 101",
         books: [
             { name: "كتاب اللغة العربية", link: "https://drive.google.com/file/d/1rFw8PreTixsl7om5OYdSblZR9fSdznrU/view?usp=drive_link", year: "2024" }
+        ],
+        lectures: [
+            { name: "محاضرة 1", link: "https://drive.google.com/file/d/1hTV61Wi_QhsgvNS4053kyuCQiIJ8mrWS/view", type: "drive" },
+            { name: "محاضرة 2", link: "https://drive.google.com/file/d/1svLca-O5m-Jp-Kvlf37kVsqfRcBRlBCS/view", type: "drive" }
         ]},
     med_terms: { 
         title: "مصطلحات طبية", 
@@ -48,6 +75,10 @@ const courses = {
         code: "MEDT 101",
         books: [
             { name: "المصطلحات الطبية - د. أيمن أبو مصطفى 2024", link: "https://www.mediafire.com/file/89jqd8vy6kx9t5r/Medical+Terminology+++2024+-+Dr.+Ayman+Abu+Mustafa+Students+lectures.pdf/file", year: "2024" }
+        ],
+        lectures: [
+            { name: "محاضرة 1", link: "https://www.youtube.com/watch?v=5GJgok2w0jI", type: "youtube" },
+            { name: "محاضرة 2", link: "https://www.youtube.com/watch?v=R1477sBA7vw", type: "youtube" }
         ]},
     
     nursing_practical: { 
@@ -56,49 +87,56 @@ const courses = {
         code: "NURS 102",
         books: [
             { name: "دليل التمريض العملي", link: "#", year: "2024", coming: true }
-        ]},
+        ],
+        lectures: []},
     nursing1: { 
         title: "أساسيات التمريض", 
         icon: "fa-stethoscope", 
         code: "NURS 101",
         books: [
             { name: "كتاب أساسيات التمريض", link: "#", year: "2024", coming: true }
-        ]},
+        ],
+        lectures: []},
     safety: { 
         title: "السلامة", 
         icon: "fa-shield-halved", 
         code: "SAFE 101",
         books: [
             { name: "دليل السلامة المهنية", link: "#", year: "2024", coming: true }
-        ]},
+        ],
+        lectures: []},
     microbio: { 
         title: "أحياء دقيقة", 
         icon: "fa-bacteria", 
         code: "MICR 101",
         books: [
             { name: "كتاب الأحياء الدقيقة", link: "#", year: "2024", coming: true }
-        ]},
+        ],
+        lectures: []},
     biochem2: { 
         title: "كيمياء حيوية طبية", 
         icon: "fa-vial", 
         code: "BCHM 102",
         books: [
             { name: "كتاب الكيمياء الحيوية الطبية", link: "#", year: "2024", coming: true }
-        ]},
+        ],
+        lectures: []},
     quran: { 
         title: "القران الكريم", 
         icon: "fa-book-quran", 
         code: "QURN 101",
         books: [
             { name: "تفسير القرآن الكريم", link: "#", year: "2024", coming: true }
-        ]},
+        ],
+        lectures: []},
     anatomy2: { 
         title: "التشريح 2", 
         icon: "fa-bone", 
         code: "ANAT 102",
         books: [
             { name: "كتاب التشريح المتقدم", link: "#", year: "2024", coming: true }
-        ]}
+        ],
+        lectures: []}
 };
 
 function animatePage(html) {
@@ -188,8 +226,8 @@ function openCourse(key) {
             <div class="tab" onclick="switchTab(this, '${key}', 'exams')">
                 <i class="fas fa-question-circle"></i> اختبارات
             </div>
-            <div class="tab" onclick="switchTab(this, '${key}', 'reports')">
-                <i class="fas fa-flask"></i> تقارير
+            <div class="tab" onclick="switchTab(this, '${key}', 'lectures')">
+                <i class="fas fa-video"></i> محاضرات
             </div>
         </div>
 
@@ -246,7 +284,44 @@ function loadTabContent(courseKey, type) {
         });
 
         html += `</div>`;
-    } else {
+    } 
+    else if (type === 'lectures') {
+        html = `
+            <div class="books-section">
+                <div class="section-title">
+                    <i class="fas fa-video"></i>
+                    <span>المحاضرات المسجلة</span>
+                </div>
+        `;
+
+        if (course.lectures && course.lectures.length > 0) {
+            course.lectures.forEach(lecture => {
+                const icon = lecture.type === 'youtube' ? 'fa-youtube' : 'fa-google-drive';
+                html += `
+                    <a href="${lecture.link}" class="book-button" target="_blank" rel="noopener noreferrer">
+                        <i class="fab ${icon}"></i>
+                        <span>${lecture.name}</span>
+                        <div class="click-here">
+                            <i class="fas fa-hand-pointer"></i>
+                            مشاهدة
+                        </div>
+                    </a>
+                `;
+            });
+        } else {
+            html += `
+                <div class="content-card" style="justify-content: center; text-align: center;">
+                    <div class="content-info">
+                        <i class="fas fa-video-slash" style="font-size: 2rem; color: #95a5a6;"></i>
+                        <h4 style="color: #7f8c8d;">لا توجد محاضرات متاحة حالياً</h4>
+                    </div>
+                </div>
+            `;
+        }
+
+        html += `</div>`;
+    }
+    else {
         const items = {
             summaries: [
                 { name: "ملخص الوحدة الأولى", file: "#" },
@@ -257,34 +332,40 @@ function loadTabContent(courseKey, type) {
                 { name: "اختبار قصير 1", file: "#" },
                 { name: "اختبار منتصف الفصل", file: "#" },
                 { name: "اختبار نهائي", file: "#" }
-            ],
-            reports: [
-                { name: "تقرير عملي 1", file: "#" },
-                { name: "تقرير عملي 2", file: "#" },
-                { name: "دليل العملي", file: "#" }
             ]
         }[type] || [];
 
         html = '<div class="books-section">';
         html += `<div class="section-title">
-                    <i class="fas ${type === 'summaries' ? 'fa-file-alt' : type === 'exams' ? 'fa-question-circle' : 'fa-flask'}"></i>
-                    <span>${type === 'summaries' ? 'الملخصات' : type === 'exams' ? 'الاختبارات' : 'التقارير'}</span>
+                    <i class="fas ${type === 'summaries' ? 'fa-file-alt' : 'fa-question-circle'}"></i>
+                    <span>${type === 'summaries' ? 'الملخصات' : 'الاختبارات'}</span>
                 </div>`;
 
-        items.forEach(item => {
-            html += `
-                <div class="content-card">
-                    <div class="content-info">
-                        <i class="fas fa-file-pdf"></i>
-                        <h4>${item.name}</h4>
+        if (items.length > 0) {
+            items.forEach(item => {
+                html += `
+                    <div class="content-card">
+                        <div class="content-info">
+                            <i class="fas fa-file-pdf"></i>
+                            <h4>${item.name}</h4>
+                        </div>
+                        <a href="#" class="download-btn" onclick="alert('سيتم إضافة الرابط قريباً'); return false;">
+                            <i class="fas fa-download"></i>
+                            تحميل
+                        </a>
                     </div>
-                    <a href="#" class="download-btn" onclick="alert('سيتم إضافة الرابط قريباً'); return false;">
-                        <i class="fas fa-download"></i>
-                        تحميل
-                    </a>
+                `;
+            });
+        } else {
+            html += `
+                <div class="content-card" style="justify-content: center; text-align: center;">
+                    <div class="content-info">
+                        <i class="fas fa-file-excel" style="font-size: 2rem; color: #95a5a6;"></i>
+                        <h4 style="color: #7f8c8d;">لا توجد ${type === 'summaries' ? 'ملخصات' : 'اختبارات'} متاحة حالياً</h4>
+                    </div>
                 </div>
             `;
-        });
+        }
 
         html += '</div>';
     }
