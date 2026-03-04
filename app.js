@@ -5,49 +5,49 @@ const courses = {
         icon: "fa-dna", 
         code: "BIOL 101",
         books: [
-            { name: "كتاب الأحياء - د. أيمن أبو مصطفى", link: "https://www.mediafire.com/file/8oddlw5fw751nd2/Biology+Dr.+Ayman+Abu+Mustafa+2024.pdf/file", year: "2024" }
+            { name: "كتاب الأحياء - د. أيمن أبو مصطفى 2024", link: "https://www.mediafire.com/file/8oddlw5fw751nd2/Biology+Dr.+Ayman+Abu+Mustafa+2024.pdf/file", year: "2024" }
         ]},
     chemistry: { 
         title: "الكيمياء", 
         icon: "fa-flask", 
         code: "CHEM 101",
         books: [
-            { name: "كتاب الكيمياء العامة", link: "#", year: "2024", coming: true }
+            { name: "كتاب الكيمياء", link: "https://drive.google.com/file/d/16NwS8HV1UizqrMnKnAAIOhth_6STxxff/view?usp=drivesdk", year: "2024" }
         ]},
     physics: { 
-        title: "مقدمه التمريض", 
+        title: "مقدمة التمريض", 
         icon: "fa-atom", 
         code: "PHYS 101",
         books: [
-            { name: " كتاب المقدمه", link: "#", year: "2024", coming: true }
+            { name: "كتاب مقدمة التمريض", link: "https://drive.google.com/file/d/1MvpccHOlHV3XcPUrtB7uXDoKFdB5MlSr/view?usp=sharing", year: "2024" }
         ]},
     anatomy: { 
-        title: "القضيه الفلسطينيه", 
+        title: "القضية الفلسطينية", 
         icon: "fa-brain", 
         code: "ANAT 101",
         books: [
-            { name: "كتاب القضيه", link: "#", year: "2024", coming: true }
+            { name: "كتاب القضية الفلسطينية", link: "https://drive.google.com/file/d/1HOyQGAJut0J7DGQTGTwoA_4l5qxRAshs/view?usp=drivesdk", year: "2024" }
         ]},
     physiology: { 
-        title: "العقيده الاسلاميه", 
+        title: "العقيدة الإسلامية", 
         icon: "fa-heartbeat", 
         code: "PHYL 101",
         books: [
-            { name: "كتاب العقيده", link: "#", year: "2024", coming: true }
+            { name: "كتاب العقيدة الإسلامية", link: "https://drive.google.com/file/d/1Dp31f1IO5W7-3n5_08OnUCY1CRJe8giz/view?usp=sharing", year: "2024" }
         ]},
     biochemistry: { 
-        title: "اللغه العربيه", 
+        title: "اللغة العربية", 
         icon: "fa-dna", 
         code: "BCHM 101",
         books: [
-            { name: "كتاب اللغه العربيه", link: "#", year: "2024", coming: true }
+            { name: "كتاب اللغة العربية", link: "https://drive.google.com/file/d/1rFw8PreTixsl7om5OYdSblZR9fSdznrU/view?usp=drive_link", year: "2024" }
         ]},
     med_terms: { 
         title: "مصطلحات طبية", 
         icon: "fa-language", 
         code: "MEDT 101",
         books: [
-            { name: "قاموس المصطلحات الطبية", link: "#", year: "2024", coming: true }
+            { name: "المصطلحات الطبية - د. أيمن أبو مصطفى 2024", link: "https://www.mediafire.com/file/89jqd8vy6kx9t5r/Medical+Terminology+++2024+-+Dr.+Ayman+Abu+Mustafa+Students+lectures.pdf/file", year: "2024" }
         ]},
     
     nursing_practical: { 
