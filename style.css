@@ -32,7 +32,7 @@ body {
     width: 100%;
 }
 
-/* الهيدر المطور - أصغر حجماً */
+/* الهيدر المطور */
 header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -111,7 +111,7 @@ header {
     font-size: 0.9rem;
 }
 
-/* عنوان الصفحة - أصغر */
+/* عنوان الصفحة */
 .page-title {
     text-align: center;
     color: white;
@@ -140,7 +140,7 @@ header {
     border-radius: 2px;
 }
 
-/* الأزرار - أصغر */
+/* الأزرار */
 .back-button {
     padding: 0.5rem 1.3rem;
     border-radius: 40px;
@@ -187,7 +187,7 @@ header {
     font-size: 1.3rem;
 }
 
-/* شبكة المساقات - متجاوبة */
+/* شبكة المساقات */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -195,7 +195,7 @@ header {
     margin-top: 15px;
 }
 
-/* البطاقات - أصغر */
+/* البطاقات */
 .card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -258,7 +258,7 @@ header {
     display: inline-block;
 }
 
-/* التبويبات - أصغر */
+/* التبويبات */
 .tabs {
     display: flex;
     gap: 0.5rem;
@@ -303,7 +303,7 @@ header {
     margin-top: 20px;
 }
 
-/* بطاقات المحتوى - أصغر */
+/* بطاقات المحتوى */
 .content-card {
     background: white;
     border-radius: 12px;
@@ -367,7 +367,7 @@ header {
     color: var(--gold);
 }
 
-/* قسم الكتب - أصغر */
+/* قسم الكتب */
 .books-section {
     background: rgba(249, 249, 249, 0.9);
     border-radius: 12px;
@@ -478,7 +478,7 @@ header {
     color: var(--gold);
 }
 
-/* تذييل الصفحة - أصغر */
+/* تذييل الصفحة */
 .footer {
     text-align: center;
     margin-top: 50px;
