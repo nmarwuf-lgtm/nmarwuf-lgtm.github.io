@@ -139,11 +139,11 @@ const courses = {
         lectures: []}
 };
 
-// إضافة CSS للثيمات المريحة مع خيار الأسود
+// إضافة CSS للثيمات المريحة وتصغير الايقونات
 const style = document.createElement('style');
 style.textContent = `
     /* ثيم أساسي - أزرق مريح */
-    .theme-blue {
+    :root {
         --primary-color: #4A90E2;
         --primary-dark: #357ABD;
         --primary-light: #6BA5E8;
@@ -151,34 +151,13 @@ style.textContent = `
         --bg-gradient-start: #E8F0FE;
         --bg-gradient-end: #D1E2FC;
         --card-bg: rgba(255, 255, 255, 0.95);
-        --card-bg-solid: #FFFFFF;
         --text-color: #2C3E50;
         --text-light: #5D6D7E;
         --border-color: #BDC9D6;
         --shadow-color: rgba(74, 144, 226, 0.2);
         --hover-bg: #F0F7FF;
-        --input-bg: white;
     }
     
-    /* ثيم أسود أنيق */
-    .theme-black {
-        --primary-color: #6C7A89;
-        --primary-dark: #566573;
-        --primary-light: #8596A8;
-        --accent-color: #E74C3C;
-        --bg-gradient-start: #1A1E24;
-        --bg-gradient-end: #2C3E50;
-        --card-bg: rgba(44, 62, 80, 0.95);
-        --card-bg-solid: #34495E;
-        --text-color: #ECF0F1;
-        --text-light: #BDC3C7;
-        --border-color: #566573;
-        --shadow-color: rgba(0, 0, 0, 0.3);
-        --hover-bg: #3D566E;
-        --input-bg: #2C3E50;
-    }
-    
-    /* الثيمات قابلة للتبديل */
     body {
         background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
         color: var(--text-color);
@@ -192,37 +171,6 @@ style.textContent = `
     .container {
         max-width: 1200px;
         margin: 0 auto;
-    }
-    
-    /* زر تبديل الثيم */
-    .theme-switcher {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 25px;
-    }
-    
-    .theme-btn {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        border: 3px solid var(--card-bg-solid);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px var(--shadow-color);
-    }
-    
-    .theme-btn:hover {
-        transform: scale(1.15);
-        box-shadow: 0 8px 20px var(--shadow-color);
-    }
-    
-    .theme-btn.blue {
-        background: linear-gradient(135deg, #4A90E2, #357ABD);
-    }
-    
-    .theme-btn.black {
-        background: linear-gradient(135deg, #2C3E50, #1A1E24);
     }
     
     /* تصغير الايقونات وجعلها responsive */
@@ -251,7 +199,6 @@ style.textContent = `
     
     .content-info i {
         font-size: clamp(1.1rem, 3.5vw, 1.5rem) !important;
-        color: var(--primary-color);
     }
     
     .tab i {
@@ -284,7 +231,7 @@ style.textContent = `
         box-shadow: 0 8px 20px var(--shadow-color);
         transition: all 0.3s ease;
         cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(10px);
     }
     
@@ -325,23 +272,23 @@ style.textContent = `
     
     .tab.active {
         background: var(--primary-color);
-        color: var(--card-bg-solid);
+        color: white;
         border-color: var(--primary-color);
         box-shadow: 0 4px 12px var(--shadow-color);
     }
     
     .tab.active i {
-        color: var(--card-bg-solid) !important;
+        color: white !important;
     }
     
     .tab:hover {
         background: var(--primary-light);
-        color: var(--card-bg-solid);
+        color: white;
         border-color: var(--primary-light);
     }
     
     .tab:hover i {
-        color: var(--card-bg-solid) !important;
+        color: white !important;
     }
     
     /* تنسيق أزرار الكتب */
@@ -355,8 +302,8 @@ style.textContent = `
         text-decoration: none;
         color: var(--text-color);
         transition: all 0.3s ease;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 4px 12px var(--shadow-color);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         font-size: clamp(0.9rem, 3vw, 1rem);
         backdrop-filter: blur(5px);
     }
@@ -371,16 +318,16 @@ style.textContent = `
     .click-here {
         margin-right: auto;
         background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
-        color: var(--card-bg-solid) !important;
+        color: white !important;
         padding: 6px 15px;
         border-radius: 25px;
         font-size: 0.9rem;
         font-weight: 600;
-        box-shadow: 0 2px 8px var(--shadow-color);
+        box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
     }
     
     .click-here i {
-        color: var(--card-bg-solid) !important;
+        color: white !important;
     }
     
     /* تنسيق الصفحة الرئيسية */
@@ -389,23 +336,23 @@ style.textContent = `
         color: var(--text-color);
         margin-bottom: 30px;
         font-size: clamp(1.5rem, 5vw, 2.5rem);
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
     }
     
     .code {
         display: inline-block;
-        background: rgba(108, 122, 137, 0.2);
+        background: rgba(74, 144, 226, 0.1);
         padding: 5px 15px;
         border-radius: 25px;
         font-size: 0.9rem;
-        color: var(--text-light);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--primary-color);
+        border: 1px solid rgba(74, 144, 226, 0.2);
     }
     
     /* تنسيق أزرار الرجوع */
     .back-button {
         background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-        color: var(--card-bg-solid);
+        color: white;
         border: none;
         padding: 10px 25px;
         border-radius: 30px;
@@ -425,7 +372,6 @@ style.textContent = `
     .back-button i {
         font-size: 0.9rem !important;
         margin-left: 5px;
-        color: var(--card-bg-solid) !important;
     }
     
     /* تنسيق محتوى التبويبات */
@@ -433,8 +379,8 @@ style.textContent = `
         background: var(--card-bg);
         border-radius: 25px;
         padding: 25px;
-        box-shadow: 0 10px 30px var(--shadow-color);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(10px);
     }
     
@@ -445,7 +391,7 @@ style.textContent = `
         margin-bottom: 20px;
         color: var(--text-color);
         font-size: clamp(1.1rem, 3.5vw, 1.3rem);
-        border-bottom: 2px solid var(--primary-color);
+        border-bottom: 2px solid rgba(74, 144, 226, 0.2);
         padding-bottom: 12px;
     }
     
@@ -454,16 +400,16 @@ style.textContent = `
         align-items: center;
         justify-content: space-between;
         padding: 15px 20px;
-        background: var(--hover-bg);
+        background: rgba(255, 255, 255, 0.7);
         border-radius: 15px;
         margin-bottom: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(74, 144, 226, 0.1);
         transition: all 0.3s ease;
     }
     
     .content-card:hover {
-        transform: translateX(-5px);
-        box-shadow: 0 5px 15px var(--shadow-color);
+        background: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.1);
     }
     
     .content-info {
@@ -480,7 +426,7 @@ style.textContent = `
     
     .download-btn {
         background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-        color: var(--card-bg-solid);
+        color: white;
         padding: 8px 18px;
         border-radius: 25px;
         text-decoration: none;
@@ -499,7 +445,7 @@ style.textContent = `
     .download-btn i {
         font-size: 0.8rem !important;
         margin-left: 5px;
-        color: var(--card-bg-solid) !important;
+        color: white !important;
     }
     
     /* تنسيق الشبكة */
@@ -513,12 +459,12 @@ style.textContent = `
     /* تنسيق روابط يوتيوب وجوجل درايف */
     .fab.fa-youtube {
         color: #FF0000 !important;
-        filter: drop-shadow(0 2px 4px rgba(255, 0, 0, 0.3));
+        filter: drop-shadow(0 2px 4px rgba(255, 0, 0, 0.2));
     }
     
     .fab.fa-google-drive {
         color: #34A853 !important;
-        filter: drop-shadow(0 2px 4px rgba(52, 168, 83, 0.3));
+        filter: drop-shadow(0 2px 4px rgba(52, 168, 83, 0.2));
     }
     
     /* تنسيق شريط البحث */
@@ -530,12 +476,13 @@ style.textContent = `
         width: 100%;
         padding: 15px 25px;
         border-radius: 40px;
-        border: 2px solid var(--border-color);
-        background: var(--input-bg);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: var(--card-bg);
         color: var(--text-color);
         font-size: 1rem;
         outline: none;
         transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
     }
     
     .search-input:focus {
@@ -577,15 +524,6 @@ style.textContent = `
             text-align: center;
             margin-right: 0;
         }
-        
-        .theme-switcher {
-            gap: 10px;
-        }
-        
-        .theme-btn {
-            width: 35px;
-            height: 35px;
-        }
     }
     
     /* تنسيق للشاشات المتوسطة */
@@ -598,28 +536,12 @@ style.textContent = `
 
 document.head.appendChild(style);
 
-// متغير لتخزين الثيم الحالي
-let currentTheme = localStorage.getItem('selectedTheme') || 'blue';
-
-// دالة لتبديل الثيم
-function setTheme(theme) {
-    currentTheme = theme;
-    document.body.className = ''; // إزالة جميع الكلاسات
-    document.body.classList.add(`theme-${theme}`);
-    localStorage.setItem('selectedTheme', theme);
-}
-
 function animatePage(html) {
     document.getElementById("main").innerHTML = html;
 }
 
 function showDashboard() {
     animatePage(`
-        <div class="theme-switcher">
-            <button onclick="setTheme('blue')" class="theme-btn blue" title="ثيم أزرق مريح"></button>
-            <button onclick="setTheme('black')" class="theme-btn black" title="ثيم أسود أنيق"></button>
-        </div>
-
         <h1 class="page-title">
             <i class="fas fa-crown"></i>
             جامعة الاقصى
@@ -774,7 +696,7 @@ function loadTabContent(courseKey, type) {
                 const icon = lecture.type === 'youtube' ? 'fa-youtube' : 'fa-google-drive';
                 html += `
                     <a href="${lecture.link}" class="book-button" target="_blank" rel="noopener noreferrer">
-                        <i class="fab ${icon}"></i>
+                        <i class="fab ${icon}" style="color: ${lecture.type === 'youtube' ? '#FF0000' : '#34A853'};"></i>
                         <span>${lecture.name}</span>
                         <div class="click-here">
                             <i class="fas fa-hand-pointer"></i>
@@ -787,8 +709,8 @@ function loadTabContent(courseKey, type) {
             html += `
                 <div class="content-card" style="justify-content: center; text-align: center;">
                     <div class="content-info">
-                        <i class="fas fa-video-slash" style="font-size: 2rem; color: var(--text-light);"></i>
-                        <h4 style="color: var(--text-light);">لا توجد محاضرات متاحة حالياً</h4>
+                        <i class="fas fa-video-slash" style="font-size: 2rem; color: #95a5a6;"></i>
+                        <h4 style="color: #7f8c8d;">لا توجد محاضرات متاحة حالياً</h4>
                     </div>
                 </div>
             `;
@@ -885,6 +807,5 @@ function globalSearch(val) {
     animatePage(html);
 }
 
-// بدء التطبيق مع الثيم المحفوظ
-setTheme(currentTheme);
+// بدء التطبيق
 showDashboard();
