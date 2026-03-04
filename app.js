@@ -1,3 +1,4 @@
+// دمج بيانات المساقات
 const courses = {
     // الفصل الأول
     biology: { 
@@ -348,5 +349,7 @@ function globalSearch(val) {
     animatePage(html);
 }
 
-// بدء التطبيق
-showDashboard();
+// بدء التطبيق عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    showDashboard();
+});
