@@ -1,632 +1,353 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary: #ff00cc;
-    --primary-gradient: linear-gradient(135deg, #ff00cc, #3333ff);
-    --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --card-bg: rgba(255, 255, 255, 0.95);
-    --text: #4527a0;
-    --muted: #666;
-    --shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    --gold: #ffd700;
-}
-
-body {
-    font-family: 'Cairo', 'Tajawal', sans-serif;
-    background: var(--bg);
-    min-height: 100vh;
-    padding: 15px;
-    font-size: 16px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-/* الهيدر المطور */
-header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 0.8rem 1.5rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    position: sticky;
-    top: 10px;
-    z-index: 100;
-    box-shadow: var(--shadow);
-    border-radius: 40px;
-    margin-bottom: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    flex-wrap: wrap;
-}
-
-.logo {
-    font-size: 1.3rem;
-    font-weight: 900;
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    color: transparent;
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.logo i {
-    color: var(--gold);
-    font-size: 1.1rem;
-    animation: crownGlow 2s infinite;
-}
-
-@keyframes crownGlow {
-    0%, 100% { filter: drop-shadow(0 0 3px var(--gold)); }
-    50% { filter: drop-shadow(0 0 8px var(--gold)); }
-}
-
-.search-bar {
-    width: 100%;
-    max-width: 350px;
-    position: relative;
-    flex: 1;
-    min-width: 200px;
-}
-
-.search-bar input {
-    width: 100%;
-    padding: 0.7rem 2.5rem 0.7rem 1rem;
-    border-radius: 30px;
-    border: 2px solid rgba(255, 215, 0, 0.2);
-    background: white;
-    color: #333;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-}
-
-.search-bar input:focus {
-    outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-}
-
-.search-bar i {
-    position: absolute;
-    left: 1rem;
-    right: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gold);
-    font-size: 0.9rem;
-}
-
-/* عنوان الصفحة */
-.page-title {
-    text-align: center;
-    color: white;
-    margin-bottom: 30px;
-    font-size: 1.8rem;
-    font-weight: 900;
-    text-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.page-title i {
-    font-size: 1.4rem;
-    margin: 0 5px;
-}
-
-.page-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold), #ff6f00);
-    border-radius: 2px;
-}
-
-/* الأزرار */
-.back-button {
-    padding: 0.5rem 1.3rem;
-    border-radius: 40px;
-    border: 2px solid var(--gold);
-    background: transparent;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-    transition: all 0.3s;
-    backdrop-filter: blur(5px);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.back-button:hover {
-    background: var(--gold);
-    color: #4527a0;
-    transform: translateX(3px);
-}
-
-.back-button i {
-    font-size: 0.8rem;
-}
-
-.course-title {
-    text-align: center;
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--gold), #ff6f00);
-    -webkit-background-clip: text;
-    color: transparent;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.course-title i {
-    font-size: 1.3rem;
-}
-
-/* شبكة المساقات */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 15px;
-    margin-top: 15px;
-}
-
-/* البطاقات */
-.card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 1rem 0.8rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold), #ff6f00, var(--gold));
-    background-size: 200% 100%;
-    animation: gradientMove 3s linear infinite;
-}
-
-@keyframes gradientMove {
-    0% { background-position: 100% 0; }
-    100% { background-position: -100% 0; }
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
-
-.card i {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, var(--gold), #ff6f00);
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-.card h3 {
-    color: #4527a0;
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 5px 0;
-    line-height: 1.4;
-}
-
-.card .code {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    display: inline-block;
-}
-
-/* التبويبات */
-.tabs {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 1.5rem 0;
-    flex-wrap: wrap;
-}
-
-.tab {
-    padding: 0.5rem 1.2rem;
-    border-radius: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: 600;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.tab i {
-    font-size: 0.8rem;
-}
-
-.tab:hover {
-    background: rgba(255, 215, 0, 0.3);
-    transform: translateY(-2px);
-}
-
-.tab.active {
-    background: linear-gradient(135deg, var(--gold), #ff6f00);
-    color: #4527a0;
-    border-color: transparent;
-}
-
-/* محتوى التبويبات */
-.tab-content {
-    margin-top: 20px;
-}
-
-/* بطاقات المحتوى */
-.content-card {
-    background: white;
-    border-radius: 12px;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.3s;
-    border-right: 4px solid var(--gold);
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.content-card:hover {
-    transform: translateX(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.content-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-    min-width: 150px;
-}
-
-.content-info i {
-    font-size: 1.3rem;
-    color: var(--gold);
-}
-
-.content-info h4 {
-    color: #4527a0;
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-
-.download-btn {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    padding: 6px 15px;
-    border-radius: 25px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.3s;
-    font-size: 0.8rem;
-    border: none;
-    cursor: pointer;
-}
-
-.download-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-}
-
-.download-btn i {
-    font-size: 0.7rem;
-    color: var(--gold);
-}
-
-/* قسم الكتب */
-.books-section {
-    background: rgba(249, 249, 249, 0.9);
-    border-radius: 12px;
-    padding: 15px;
-    margin: 15px 0;
-}
-
-.section-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #4527a0;
-    font-weight: 700;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-}
-
-.section-title i {
-    font-size: 1rem;
-    color: var(--gold);
-}
-
-.book-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 12px 18px;
-    border-radius: 40px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.book-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.book-button:hover::before {
-    left: 100%;
-}
-
-.book-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
-    border-color: var(--gold);
-}
-
-.book-button i {
-    font-size: 1.2rem;
-    color: var(--gold);
-    filter: drop-shadow(0 0 5px var(--gold));
-}
-
-.book-button span {
-    flex: 1;
-    margin: 0 10px;
-    font-size: 0.95rem;
-}
-
-.click-here {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 5px 15px;
-    border-radius: 25px;
-    font-size: 0.8rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    white-space: nowrap;
-}
-
-.click-here i {
-    font-size: 0.7rem;
-    margin: 0;
-}
-
-.info-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.05);
-    padding: 8px 12px;
-    border-radius: 8px;
-    color: #666;
-    font-size: 0.85rem;
-    margin: 8px 0;
-    flex-wrap: wrap;
-}
-
-.info-badge i {
-    font-size: 0.8rem;
-    color: var(--gold);
-}
-
-/* تذييل الصفحة */
-.footer {
-    text-align: center;
-    margin-top: 50px;
-    padding: 20px 15px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.signature {
-    font-size: 1.3rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--gold), #ff6f00);
-    -webkit-background-clip: text;
-    color: transparent;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.signature i {
-    color: var(--gold);
-    font-size: 1rem;
-}
-
-.signature-sub {
-    color: white;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.signature-sub i {
-    font-size: 0.7rem;
-    color: var(--gold);
-}
-
-/* تحسينات للأجهزة الصغيرة جداً */
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
+// بيانات المساقات
+const courses = {
+    // الفصل الأول
+    biology: { 
+        title: "الأحياء", 
+        icon: "fa-dna", 
+        code: "BIOL 101",
+        books: [
+            { name: "كتاب الأحياء - د. أيمن أبو مصطفى", link: "https://www.mediafire.com/file/8oddlw5fw751nd2/Biology+Dr.+Ayman+Abu+Mustafa+2024.pdf/file", year: "2024" }
+        ]},
+    chemistry: { 
+        title: "الكيمياء", 
+        icon: "fa-flask", 
+        code: "CHEM 101",
+        books: [
+            { name: "كتاب الكيمياء العامة", link: "#", year: "2024", coming: true }
+        ]},
+    physics: { 
+        title: "مقدمه التمريض", 
+        icon: "fa-atom", 
+        code: "PHYS 101",
+        books: [
+            { name: " كتاب المقدمه", link: "#", year: "2024", coming: true }
+        ]},
+    anatomy: { 
+        title: "القضيه الفلسطينيه", 
+        icon: "fa-brain", 
+        code: "ANAT 101",
+        books: [
+            { name: "كتاب القضيه", link: "#", year: "2024", coming: true }
+        ]},
+    physiology: { 
+        title: "العقيده الاسلاميه", 
+        icon: "fa-heartbeat", 
+        code: "PHYL 101",
+        books: [
+            { name: "كتاب العقيده", link: "#", year: "2024", coming: true }
+        ]},
+    biochemistry: { 
+        title: "اللغه العربيه", 
+        icon: "fa-dna", 
+        code: "BCHM 101",
+        books: [
+            { name: "كتاب اللغه العربيه", link: "#", year: "2024", coming: true }
+        ]},
+    med_terms: { 
+        title: "مصطلحات طبية", 
+        icon: "fa-language", 
+        code: "MEDT 101",
+        books: [
+            { name: "قاموس المصطلحات الطبية", link: "#", year: "2024", coming: true }
+        ]},
     
-    header {
-        flex-direction: column;
-        padding: 0.8rem;
-    }
-    
-    .logo {
-        font-size: 1.1rem;
-    }
-    
-    .search-bar {
-        max-width: 100%;
-    }
-    
-    .grid {
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 10px;
-    }
-    
-    .card {
-        padding: 0.8rem 0.5rem;
-    }
-    
-    .card i {
-        font-size: 1.5rem;
-    }
-    
-    .card h3 {
-        font-size: 0.9rem;
-    }
-    
-    .page-title {
-        font-size: 1.4rem;
-    }
-    
-    .course-title {
-        font-size: 1.3rem;
-    }
-    
-    .tab {
-        padding: 0.4rem 1rem;
-        font-size: 0.8rem;
-    }
-    
-    .book-button {
-        flex-direction: column;
-        text-align: center;
-        padding: 12px;
-    }
-    
-    .book-button span {
-        margin: 5px 0;
-    }
-    
-    .content-card {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .download-btn {
-        width: 100%;
-        justify-content: center;
-    }
+    // الفصل الثاني
+    nursing_practical: { 
+        title: "تمريض عملي", 
+        icon: "fa-hospital-user", 
+        code: "NURS 102",
+        books: [
+            { name: "دليل التمريض العملي", link: "#", year: "2024", coming: true }
+        ]},
+    nursing1: { 
+        title: "أساسيات التمريض", 
+        icon: "fa-stethoscope", 
+        code: "NURS 101",
+        books: [
+            { name: "كتاب أساسيات التمريض", link: "#", year: "2024", coming: true }
+        ]},
+    safety: { 
+        title: "السلامة", 
+        icon: "fa-shield-halved", 
+        code: "SAFE 101",
+        books: [
+            { name: "دليل السلامة المهنية", link: "#", year: "2024", coming: true }
+        ]},
+    microbio: { 
+        title: "أحياء دقيقة", 
+        icon: "fa-bacteria", 
+        code: "MICR 101",
+        books: [
+            { name: "كتاب الأحياء الدقيقة", link: "#", year: "2024", coming: true }
+        ]},
+    biochem2: { 
+        title: "كيمياء حيوية طبية", 
+        icon: "fa-vial", 
+        code: "BCHM 102",
+        books: [
+            { name: "كتاب الكيمياء الحيوية الطبية", link: "#", year: "2024", coming: true }
+        ]},
+    quran: { 
+        title: "القران الكريم", 
+        icon: "fa-book-quran", 
+        code: "QURN 101",
+        books: [
+            { name: "تفسير القرآن الكريم", link: "#", year: "2024", coming: true }
+        ]},
+    anatomy2: { 
+        title: "التشريح 2", 
+        icon: "fa-bone", 
+        code: "ANAT 102",
+        books: [
+            { name: "كتاب التشريح المتقدم", link: "#", year: "2024", coming: true }
+        ]}
+};
+
+// دالة تحديث المحتوى
+function animatePage(html) {
+    document.getElementById("main").innerHTML = html;
 }
 
-/* تحسينات للأجهزة المتوسطة */
-@media (min-width: 481px) and (max-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-    
-    .book-button {
-        padding: 10px 15px;
-    }
+// الصفحة الرئيسية
+function showDashboard() {
+    animatePage(`
+        <h1 class="page-title">
+            <i class="fas fa-crown"></i>
+            جامعة الاقصى
+            <i class="fas fa-crown"></i>
+        </h1>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <i class="fas fa-user-nurse"></i>
+            <h2>تمريض - سنة أولى</h2>
+        </div>
+
+        <div class="grid">
+            <div class="card" onclick="openSemester(1)">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>الفصل الأول</h3>
+                <span class="code">7 مساقات</span>
+            </div>
+
+            <div class="card" onclick="openSemester(2)">
+                <i class="fas fa-calendar-check"></i>
+                <h3>الفصل الثاني</h3>
+                <span class="code">7 مساقات</span>
+            </div>
+        </div>
+    `);
 }
 
-/* دعم الشاشات الكبيرة */
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1400px;
-    }
-    
-    .grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    }
+// فتح فصل دراسي
+function openSemester(sem) {
+    const list = sem === 1 ? 
+        ["biology", "chemistry", "physics", "anatomy", "physiology", "biochemistry", "med_terms"] :
+        ["nursing_practical", "nursing1", "safety", "microbio", "biochem2", "quran", "anatomy2"];
+
+    let html = `
+        <button class="back-button" onclick="showDashboard()">
+            <i class="fas fa-arrow-right"></i>
+            رجوع
+        </button>
+        <h2 class="course-title">
+            الفصل ${sem === 1 ? "الأول" : "الثاني"}
+        </h2>
+        <div class="grid">
+    `;
+
+    list.forEach(key => {
+        html += `
+            <div class="card" onclick="openCourse('${key}')">
+                <i class="fas ${courses[key].icon}"></i>
+                <h3>${courses[key].title}</h3>
+                <span class="code">${courses[key].code}</span>
+            </div>
+        `;
+    });
+
+    html += "</div>";
+    animatePage(html);
 }
 
-/* تحسين اللمس للأجهزة المحمولة */
-@media (hover: none) and (pointer: coarse) {
-    .card:hover,
-    .book-button:hover,
-    .tab:hover {
-        transform: none;
-    }
+// فتح مساق معين
+function openCourse(key) {
+    const course = courses[key];
     
-    .card:active,
-    .book-button:active,
-    .tab:active {
-        opacity: 0.7;
-    }
+    let html = `
+        <button class="back-button" onclick="showDashboard()">
+            <i class="fas fa-arrow-right"></i>
+            رجوع
+        </button>
+        
+        <h2 class="course-title">
+            <i class="fas ${course.icon}"></i>
+            ${course.title}
+        </h2>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab(this, '${key}', 'books')">
+                <i class="fas fa-book"></i> كتب
+            </div>
+            <div class="tab" onclick="switchTab(this, '${key}', 'summaries')">
+                <i class="fas fa-file-alt"></i> ملخصات
+            </div>
+            <div class="tab" onclick="switchTab(this, '${key}', 'exams')">
+                <i class="fas fa-question-circle"></i> اختبارات
+            </div>
+            <div class="tab" onclick="switchTab(this, '${key}', 'reports')">
+                <i class="fas fa-flask"></i> تقارير
+            </div>
+        </div>
+
+        <div id="tabContent" class="tab-content"></div>
+    `;
+
+    animatePage(html);
+    loadTabContent(key, 'books');
 }
+
+// تبديل التبويبات
+function switchTab(el, courseKey, type) {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    el.classList.add("active");
+    loadTabContent(courseKey, type);
+}
+
+// تحميل محتوى التبويب
+function loadTabContent(courseKey, type) {
+    const course = courses[courseKey];
+    let html = '';
+
+    if (type === 'books') {
+        html = `
+            <div class="books-section">
+                <div class="section-title">
+                    <i class="fas fa-book"></i>
+                    <span>الكتب الدراسية</span>
+                </div>
+        `;
+
+        course.books.forEach(book => {
+            if (book.coming) {
+                html += `
+                    <div class="book-button" onclick="alert('سيتم إضافة الرابط قريباً')" style="cursor: pointer;">
+                        <i class="fas fa-book-open"></i>
+                        <span>${book.name}</span>
+                        <div class="click-here">
+                            <i class="fas fa-clock"></i>
+                            قريباً
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <a href="${book.link}" class="book-button" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-book-open"></i>
+                        <span>${book.name}</span>
+                        <div class="click-here">
+                            <i class="fas fa-hand-pointer"></i>
+                            تحميل
+                        </div>
+                    </a>
+                `;
+            }
+        });
+
+        html += `</div>`;
+    } else {
+        const items = {
+            summaries: [
+                { name: "ملخص الوحدة الأولى", file: "#" },
+                { name: "ملخص الوحدة الثانية", file: "#" },
+                { name: "ملخص الوحدة الثالثة", file: "#" }
+            ],
+            exams: [
+                { name: "اختبار قصير 1", file: "#" },
+                { name: "اختبار منتصف الفصل", file: "#" },
+                { name: "اختبار نهائي", file: "#" }
+            ],
+            reports: [
+                { name: "تقرير عملي 1", file: "#" },
+                { name: "تقرير عملي 2", file: "#" },
+                { name: "دليل العملي", file: "#" }
+            ]
+        }[type] || [];
+
+        html = '<div class="books-section">';
+        html += `<div class="section-title">
+                    <i class="fas ${type === 'summaries' ? 'fa-file-alt' : type === 'exams' ? 'fa-question-circle' : 'fa-flask'}"></i>
+                    <span>${type === 'summaries' ? 'الملخصات' : type === 'exams' ? 'الاختبارات' : 'التقارير'}</span>
+                </div>`;
+
+        items.forEach(item => {
+            html += `
+                <div class="content-card">
+                    <div class="content-info">
+                        <i class="fas fa-file-pdf"></i>
+                        <h4>${item.name}</h4>
+                    </div>
+                    <a href="#" class="download-btn" onclick="alert('سيتم إضافة الرابط قريباً'); return false;">
+                        <i class="fas fa-download"></i>
+                        تحميل
+                    </a>
+                </div>
+            `;
+        });
+
+        html += '</div>';
+    }
+
+    document.getElementById("tabContent").innerHTML = html;
+}
+
+// البحث الشامل
+function globalSearch(val) {
+    val = val.toLowerCase().trim();
+    
+    if (!val) {
+        showDashboard();
+        return;
+    }
+
+    let results = Object.keys(courses).filter(key => 
+        courses[key].title.toLowerCase().includes(val) ||
+        courses[key].code.toLowerCase().includes(val)
+    );
+
+    let html = `
+        <button class="back-button" onclick="showDashboard()">
+            <i class="fas fa-arrow-right"></i>
+            رجوع
+        </button>
+        <h2 class="course-title">
+            <i class="fas fa-search"></i>
+            نتائج (${results.length})
+        </h2>
+    `;
+
+    if (results.length === 0) {
+        html += `
+            <div class="card" style="text-align: center; padding: 30px;">
+                <i class="fas fa-frown" style="font-size: 2rem;"></i>
+                <h3>لا توجد نتائج</h3>
+            </div>
+        `;
+    } else {
+        html += '<div class="grid">';
+        results.forEach(key => {
+            html += `
+                <div class="card" onclick="openCourse('${key}')">
+                    <i class="fas ${courses[key].icon}"></i>
+                    <h3>${courses[key].title}</h3>
+                    <span class="code">${courses[key].code}</span>
+                </div>
+            `;
+        });
+        html += '</div>';
+    }
+
+    animatePage(html);
+}
+
+// بدء التطبيق
+showDashboard();
