@@ -222,6 +222,93 @@ style.textContent = `
         50% { transform: scale(1.05); }
     }
     
+    /* ===== إهداء الشهيد ===== */
+    .martyr-dedication {
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 2px solid var(--gold);
+        border-radius: 20px;
+        padding: 20px;
+        margin: 20px auto 30px auto;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .martyr-dedication::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+        animation: rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .martyr-icon {
+        font-size: 3rem;
+        color: var(--gold);
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .martyr-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--gold);
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .martyr-name {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(135deg, var(--gold), #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .martyr-dua {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        line-height: 1.8;
+        position: relative;
+        z-index: 1;
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,215,0,0.3);
+    }
+    
+    .martyr-dua i {
+        color: var(--gold);
+        margin: 0 5px;
+    }
+    
     /* تنسيق البطاقات */
     .card {
         background: var(--card-bg);
@@ -334,7 +421,7 @@ style.textContent = `
     .page-title {
         text-align: center;
         color: var(--text-color);
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         font-size: clamp(1.5rem, 5vw, 2.5rem);
         text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
     }
@@ -523,6 +610,18 @@ style.textContent = `
             width: 100%;
             text-align: center;
             margin-right: 0;
+        }
+        
+        .martyr-name {
+            font-size: 1.4rem;
+        }
+        
+        .martyr-title {
+            font-size: 1.2rem;
+        }
+        
+        .martyr-dua {
+            font-size: 0.95rem;
         }
     }
     
@@ -779,6 +878,25 @@ function showDashboard() {
             جامعة الاقصى
             <i class="fas fa-crown"></i>
         </h1>
+
+        <!-- إهداء روح الشهيد -->
+        <div class="martyr-dedication">
+            <div class="martyr-icon">
+                <i class="fas fa-star-and-crescent"></i>
+                <i class="fas fa-heart" style="color: #ff6b6b; margin: 0 10px;"></i>
+                <i class="fas fa-dove"></i>
+            </div>
+            <div class="martyr-title">إهداء لروح الشهيد الطاهرة</div>
+            <div class="martyr-name">ياسر عطيه المصري (ابو مصعب)</div>
+            <div class="martyr-dua">
+                <i class="fas fa-quote-right"></i>
+                نسأل الله أن يتقبله في الشهداء، وأن يرفع درجته في عليين، 
+                وأن يجعل هذا العمل صدقة جارية له إلى يوم الدين 
+                <i class="fas fa-quote-left"></i>
+                <br>
+                <span style="display: block; margin-top: 10px; font-size: 1.5rem;">🤲</span>
+            </div>
+        </div>
 
         <div class="card" style="margin-bottom: 20px;">
             <i class="fas fa-user-nurse"></i>
