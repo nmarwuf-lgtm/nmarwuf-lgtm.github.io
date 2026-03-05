@@ -711,8 +711,65 @@ document.head.appendChild(style);
 
 // ========== نهاية نظام الحماية ==========
 
+// ========== نظام التنقل بالروابط (HTML Links) ==========
+
+// دالة لإنشاء رابط للصفحة الرئيسية
+function getDashboardLink() {
+    return '#dashboard';
+}
+
+// دالة لإنشاء رابط للفصل الدراسي
+function getSemesterLink(sem) {
+    return `#semester-${sem}`;
+}
+
+// دالة لإنشاء رابط للمساق
+function getCourseLink(key, tab = 'books') {
+    return `#course-${key}-${tab}`;
+}
+
+// معالجة التغير في الـ Hash
+window.addEventListener('hashchange', function() {
+    const hash = window.location.hash.substring(1); // إزالة الـ #
+    
+    if (!hash || hash === 'dashboard') {
+        showDashboard();
+    } else if (hash.startsWith('semester-')) {
+        const sem = parseInt(hash.split('-')[1]);
+        if (sem === 1 || sem === 2) {
+            showSemester(sem);
+        } else {
+            showDashboard();
+        }
+    } else if (hash.startsWith('course-')) {
+        const parts = hash.split('-');
+        const courseKey = parts[1];
+        const tab = parts[2] || 'books';
+        
+        if (courses[courseKey]) {
+            showCourse(courseKey, tab);
+        } else {
+            showDashboard();
+        }
+    } else {
+        showDashboard();
+    }
+});
+
+// ========== نهاية نظام التنقل بالروابط ==========
+
 function animatePage(html) {
     document.getElementById("main").innerHTML = html;
+    
+    // تحديث الـ Hash إذا لزم الأمر (بدون إعادة تحميل)
+    const currentHash = window.location.hash.substring(1);
+    if (!currentHash || currentHash === 'dashboard') {
+        // لا تفعل شيء
+    } else if (currentHash.startsWith('semester-')) {
+        // لا تفعل شيء
+    } else if (currentHash.startsWith('course-')) {
+        // لا تفعل شيء
+    }
 }
 
 function showDashboard() {
@@ -729,31 +786,35 @@ function showDashboard() {
         </div>
 
         <div class="grid">
-            <div class="card" onclick="openSemester(1)">
-                <i class="fas fa-calendar-alt"></i>
-                <h3>الفصل الأول</h3>
-                <span class="code">7 مساقات</span>
-            </div>
+            <a href="#semester-1" class="card-link" style="text-decoration: none;">
+                <div class="card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>الفصل الأول</h3>
+                    <span class="code">7 مساقات</span>
+                </div>
+            </a>
 
-            <div class="card" onclick="openSemester(2)">
-                <i class="fas fa-calendar-check"></i>
-                <h3>الفصل الثاني</h3>
-                <span class="code">7 مساقات</span>
-            </div>
+            <a href="#semester-2" class="card-link" style="text-decoration: none;">
+                <div class="card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>الفصل الثاني</h3>
+                    <span class="code">7 مساقات</span>
+                </div>
+            </a>
         </div>
     `);
 }
 
-function openSemester(sem) {
+function showSemester(sem) {
     const list = sem === 1 ? 
         ["biology", "chemistry", "physics", "anatomy", "physiology", "biochemistry", "med_terms"] :
         ["nursing_practical", "nursing1", "safety", "microbio", "biochem2", "quran", "anatomy2"];
 
     let html = `
-        <button class="back-button" onclick="showDashboard()">
+        <a href="#dashboard" class="back-button" style="display: inline-block; text-decoration: none;">
             <i class="fas fa-arrow-right"></i>
             رجوع
-        </button>
+        </a>
         <h2 class="course-title">
             الفصل ${sem === 1 ? "الأول" : "الثاني"}
         </h2>
@@ -762,11 +823,13 @@ function openSemester(sem) {
 
     list.forEach(key => {
         html += `
-            <div class="card" onclick="openCourse('${key}')">
-                <i class="fas ${courses[key].icon}"></i>
-                <h3>${courses[key].title}</h3>
-                <span class="code">${courses[key].code}</span>
-            </div>
+            <a href="#course-${key}-books" class="card-link" style="text-decoration: none;">
+                <div class="card">
+                    <i class="fas ${courses[key].icon}"></i>
+                    <h3>${courses[key].title}</h3>
+                    <span class="code">${courses[key].code}</span>
+                </div>
+            </a>
         `;
     });
 
@@ -774,14 +837,14 @@ function openSemester(sem) {
     animatePage(html);
 }
 
-function openCourse(key) {
+function showCourse(key, tab) {
     const course = courses[key];
     
     let html = `
-        <button class="back-button" onclick="showDashboard()">
+        <a href="#semester-${key === 'biology' || key === 'chemistry' || key === 'physics' || key === 'anatomy' || key === 'physiology' || key === 'biochemistry' || key === 'med_terms' ? '1' : '2'}" class="back-button" style="display: inline-block; text-decoration: none;">
             <i class="fas fa-arrow-right"></i>
             رجوع
-        </button>
+        </a>
         
         <h2 class="course-title">
             <i class="fas ${course.icon}"></i>
@@ -789,31 +852,29 @@ function openCourse(key) {
         </h2>
 
         <div class="tabs">
-            <div class="tab active" onclick="switchTab(this, '${key}', 'books')">
+            <a href="#course-${key}-books" class="tab ${tab === 'books' ? 'active' : ''}" style="text-decoration: none; color: inherit;">
                 <i class="fas fa-book"></i> كتب
-            </div>
-            <div class="tab" onclick="switchTab(this, '${key}', 'summaries')">
+            </a>
+            <a href="#course-${key}-summaries" class="tab ${tab === 'summaries' ? 'active' : ''}" style="text-decoration: none; color: inherit;">
                 <i class="fas fa-file-alt"></i> ملخصات
-            </div>
-            <div class="tab" onclick="switchTab(this, '${key}', 'exams')">
+            </a>
+            <a href="#course-${key}-exams" class="tab ${tab === 'exams' ? 'active' : ''}" style="text-decoration: none; color: inherit;">
                 <i class="fas fa-question-circle"></i> اختبارات
-            </div>
-            <div class="tab" onclick="switchTab(this, '${key}', 'lectures')">
+            </a>
+            <a href="#course-${key}-lectures" class="tab ${tab === 'lectures' ? 'active' : ''}" style="text-decoration: none; color: inherit;">
                 <i class="fas fa-video"></i> محاضرات
-            </div>
+            </a>
         </div>
 
         <div id="tabContent" class="tab-content"></div>
     `;
 
     animatePage(html);
-    loadTabContent(key, 'books');
+    loadTabContent(key, tab);
 }
 
 function switchTab(el, courseKey, type) {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    el.classList.add("active");
-    loadTabContent(courseKey, type);
+    // لم نعد نحتاج هذه الدالة لكن سنبقيها للتوافق
 }
 
 function loadTabContent(courseKey, type) {
@@ -948,10 +1009,10 @@ function globalSearch(val) {
     );
 
     let html = `
-        <button class="back-button" onclick="showDashboard()">
+        <a href="#dashboard" class="back-button" style="display: inline-block; text-decoration: none;">
             <i class="fas fa-arrow-right"></i>
             رجوع
-        </button>
+        </a>
         <h2 class="course-title">
             <i class="fas fa-search"></i>
             نتائج (${results.length})
@@ -969,11 +1030,13 @@ function globalSearch(val) {
         html += '<div class="grid">';
         results.forEach(key => {
             html += `
-                <div class="card" onclick="openCourse('${key}')">
-                    <i class="fas ${courses[key].icon}"></i>
-                    <h3>${courses[key].title}</h3>
-                    <span class="code">${courses[key].code}</span>
-                </div>
+                <a href="#course-${key}-books" class="card-link" style="text-decoration: none;">
+                    <div class="card">
+                        <i class="fas ${courses[key].icon}"></i>
+                        <h3>${courses[key].title}</h3>
+                        <span class="code">${courses[key].code}</span>
+                    </div>
+                </a>
             `;
         });
         html += '</div>';
@@ -982,5 +1045,36 @@ function globalSearch(val) {
     animatePage(html);
 }
 
+// معالجة التحميل الأول للصفحة
+window.addEventListener('load', function() {
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+        if (hash === 'dashboard' || !hash) {
+            showDashboard();
+        } else if (hash.startsWith('semester-')) {
+            const sem = parseInt(hash.split('-')[1]);
+            if (sem === 1 || sem === 2) {
+                showSemester(sem);
+            } else {
+                showDashboard();
+            }
+        } else if (hash.startsWith('course-')) {
+            const parts = hash.split('-');
+            const courseKey = parts[1];
+            const tab = parts[2] || 'books';
+            
+            if (courses[courseKey]) {
+                showCourse(courseKey, tab);
+            } else {
+                showDashboard();
+            }
+        } else {
+            showDashboard();
+        }
+    } else {
+        showDashboard();
+    }
+});
+
 // بدء التطبيق
-showDashboard();
+// showDashboard(); // تم تعطيلها لأن load سيتولى الأمر
