@@ -156,6 +156,7 @@ style.textContent = `
         --border-color: #BDC9D6;
         --shadow-color: rgba(74, 144, 226, 0.2);
         --hover-bg: #F0F7FF;
+        --gold: #f1c40f;
     }
     
     body {
@@ -214,99 +215,84 @@ style.textContent = `
     .page-title i {
         font-size: clamp(1.5rem, 5vw, 2rem) !important;
         color: var(--primary-color);
-        animation: gentlePulse 3s infinite;
     }
     
-    @keyframes gentlePulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-    }
-    
-    /* ===== إهداء الشهيد ===== */
+    /* ===== إهداء الشهيد - بنفس تنسيق الموقع ===== */
     .martyr-dedication {
-        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        background: var(--card-bg);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 2px solid var(--gold);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 20px;
-        padding: 20px;
+        padding: 15px 20px;
         margin: 20px auto 30px auto;
         max-width: 600px;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        position: relative;
-        overflow: hidden;
+        box-shadow: 0 8px 20px var(--shadow-color);
+        transition: all 0.3s ease;
     }
     
-    .martyr-dedication::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
-        animation: rotate 20s linear infinite;
-    }
-    
-    @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+    .martyr-dedication:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px var(--shadow-color);
+        background: var(--hover-bg);
     }
     
     .martyr-icon {
-        font-size: 3rem;
-        color: var(--gold);
-        margin-bottom: 10px;
-        position: relative;
-        z-index: 1;
-        animation: float 3s ease-in-out infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
     }
     
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+    .martyr-icon i {
+        font-size: clamp(1rem, 3vw, 1.3rem) !important;
+        color: var(--primary-color);
+    }
+    
+    .martyr-icon i.fa-heart {
+        color: #e74c3c;
     }
     
     .martyr-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--gold);
-        margin-bottom: 10px;
-        position: relative;
-        z-index: 1;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        font-size: clamp(0.95rem, 3vw, 1.1rem);
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 5px;
+        letter-spacing: 0.5px;
     }
     
     .martyr-name {
-        font-size: 1.8rem;
-        font-weight: 900;
-        color: white;
-        margin-bottom: 15px;
-        position: relative;
-        z-index: 1;
-        background: linear-gradient(135deg, var(--gold), #ffd700);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        font-size: clamp(1.1rem, 4vw, 1.3rem);
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 8px;
+        background: rgba(74, 144, 226, 0.1);
+        display: inline-block;
+        padding: 3px 15px;
+        border-radius: 30px;
+        border: 1px solid rgba(74, 144, 226, 0.2);
     }
     
     .martyr-dua {
-        font-size: 1.1rem;
-        color: var(--text-color);
-        line-height: 1.8;
-        position: relative;
-        z-index: 1;
-        background: rgba(255,255,255,0.1);
-        padding: 15px;
-        border-radius: 15px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255,215,0,0.3);
+        font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+        color: var(--text-light);
+        line-height: 1.6;
+        padding: 0 5px;
     }
     
     .martyr-dua i {
-        color: var(--gold);
-        margin: 0 5px;
+        font-size: 0.8rem !important;
+        color: var(--primary-color);
+        margin: 0 3px;
+        opacity: 0.7;
+    }
+    
+    .martyr-dua span {
+        font-size: 1.1rem !important;
+        color: var(--primary-color);
+        margin-top: 5px;
     }
     
     /* تنسيق البطاقات */
@@ -613,15 +599,7 @@ style.textContent = `
         }
         
         .martyr-name {
-            font-size: 1.4rem;
-        }
-        
-        .martyr-title {
-            font-size: 1.2rem;
-        }
-        
-        .martyr-dua {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
         }
     }
     
@@ -879,11 +857,11 @@ function showDashboard() {
             <i class="fas fa-crown"></i>
         </h1>
 
-        <!-- إهداء روح الشهيد -->
+        <!-- إهداء روح الشهيد - بنفس تنسيق الموقع -->
         <div class="martyr-dedication">
             <div class="martyr-icon">
                 <i class="fas fa-star-and-crescent"></i>
-                <i class="fas fa-heart" style="color: #ff6b6b; margin: 0 10px;"></i>
+                <i class="fas fa-heart"></i>
                 <i class="fas fa-dove"></i>
             </div>
             <div class="martyr-title">إهداء لروح الشهيد الطاهرة</div>
@@ -894,7 +872,7 @@ function showDashboard() {
                 وأن يجعل هذا العمل صدقة جارية له إلى يوم الدين 
                 <i class="fas fa-quote-left"></i>
                 <br>
-                <span style="display: block; margin-top: 10px; font-size: 1.5rem;">🤲</span>
+                <span>🤲</span>
             </div>
         </div>
 
