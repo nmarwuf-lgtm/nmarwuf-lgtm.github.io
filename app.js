@@ -157,6 +157,7 @@ style.textContent = `
         --shadow-color: rgba(74, 144, 226, 0.2);
         --hover-bg: #F0F7FF;
         --gold: #f1c40f;
+        --whatsapp-color: #25D366;
     }
     
     body {
@@ -215,6 +216,58 @@ style.textContent = `
     .page-title i {
         font-size: clamp(1.5rem, 5vw, 2rem) !important;
         color: var(--primary-color);
+    }
+    
+    /* ===== رابط مجموعة الواتساب ===== */
+    .whatsapp-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 20px;
+        background: rgba(37, 211, 102, 0.1);
+        border-radius: 15px;
+        margin-bottom: 15px;
+        text-decoration: none;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(37, 211, 102, 0.3);
+        backdrop-filter: blur(5px);
+        font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+    
+    .whatsapp-link:hover {
+        background: rgba(37, 211, 102, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+        border-color: var(--whatsapp-color);
+    }
+    
+    .whatsapp-link i {
+        font-size: 1.4rem !important;
+        color: var(--whatsapp-color);
+        margin-left: 10px;
+    }
+    
+    .whatsapp-text {
+        flex: 1;
+        font-weight: 600;
+        color: #075E54;
+    }
+    
+    .whatsapp-badge {
+        background: var(--whatsapp-color);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    
+    .whatsapp-badge i {
+        color: white !important;
+        font-size: 0.8rem !important;
+        margin-left: 3px;
     }
     
     /* ===== إهداء الشهيد - بنفس تنسيق الموقع ===== */
@@ -567,110 +620,39 @@ style.textContent = `
         color: var(--text-light);
     }
     
-    /* ===== توقيع المهندس نادر الجديد ===== */
+    /* ===== التوقيع الأصلي المعدل (بسيط وأنيق) ===== */
     .signature {
         text-align: center;
-        margin: 30px 0 10px 0;
-        padding: 20px;
-        background: linear-gradient(135deg, rgba(0,0,0,0.02), rgba(0,0,0,0.05));
-        border-radius: 50px;
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-    
-    .signature::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-        animation: signature-shine 3s infinite;
-    }
-    
-    @keyframes signature-shine {
-        0% { left: -100%; }
-        20% { left: 100%; }
-        100% { left: 100%; }
-    }
-    
-    .signature-content {
+        margin-top: 40px;
+        padding: 15px 0;
+        font-size: 0.9rem;
+        color: var(--text-light);
+        border-top: 1px solid rgba(0,0,0,0.05);
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
-        position: relative;
-        z-index: 2;
+        gap: 8px;
     }
     
-    .signature-icon {
-        width: 50px;
-        height: 50px;
-        background: rgba(0,0,0,0.03);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px solid rgba(0,0,0,0.1);
+    .signature i {
+        font-size: 0.9rem;
+        color: var(--primary-color);
+        opacity: 0.6;
     }
     
-    .signature-icon i {
-        font-size: 1.8rem;
-        color: #333;
-        opacity: 0.8;
+    .signature .engineer {
+        color: var(--text-color);
+        font-weight: 500;
     }
     
-    .signature-text {
-        font-size: 1.4rem;
-        font-weight: 800;
-        color: #333;
-        letter-spacing: 1px;
-        background: rgba(0,0,0,0.03);
-        padding: 8px 25px;
-        border-radius: 40px;
-        border: 1px solid rgba(0,0,0,0.1);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-    
-    .signature-text .engineer {
-        color: #333;
+    .signature .nader {
+        color: var(--primary-color);
         font-weight: 700;
-        background: linear-gradient(135deg, #333, #000);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
     }
     
-    .signature-text .nader {
-        color: #000;
-        font-weight: 900;
-        font-size: 1.6rem;
-        margin: 0 5px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .signature-year {
-        font-size: 1rem;
-        color: #666;
-        background: rgba(0,0,0,0.02);
-        padding: 5px 20px;
-        border-radius: 30px;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-    
-    .signature-decoration {
-        display: flex;
-        gap: 5px;
-    }
-    
-    .signature-decoration span {
-        width: 8px;
-        height: 8px;
-        background: #333;
-        border-radius: 50%;
-        opacity: 0.3;
+    .signature .crown-icon {
+        color: var(--gold);
+        opacity: 1;
     }
     
     /* تنسيق للشاشات الصغيرة */
@@ -708,22 +690,9 @@ style.textContent = `
             font-size: 1.1rem;
         }
         
-        .signature-text {
-            font-size: 1.1rem;
-            padding: 5px 15px;
-        }
-        
-        .signature-text .nader {
-            font-size: 1.3rem;
-        }
-        
-        .signature-icon {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .signature-icon i {
-            font-size: 1.4rem;
+        .whatsapp-link {
+            flex-wrap: wrap;
+            gap: 8px;
         }
     }
     
@@ -775,7 +744,7 @@ document.head.appendChild(style);
         }
     }, 1000);
 
-    // منع اختصارات لوحة المفاتيح
+    // منع اختصارات لوحة المفاتيح (مع السماح بنسخ النص)
     document.addEventListener('keydown', function(e) {
         // منع F12
         if (e.key === 'F12') {
@@ -827,33 +796,9 @@ document.head.appendChild(style);
         return false;
     });
 
-    // منع تحديد النص
-    document.addEventListener('selectstart', function(e) {
-        e.preventDefault();
-        return false;
-    });
-
-    // منع نسخ النص
-    document.addEventListener('copy', function(e) {
-        e.preventDefault();
-        showSecurityAlert();
-        return false;
-    });
-
-    // منع قص النص
-    document.addEventListener('cut', function(e) {
-        e.preventDefault();
-        showSecurityAlert();
-        return false;
-    });
-
-    // منع لصق النص
-    document.addEventListener('paste', function(e) {
-        e.preventDefault();
-        showSecurityAlert();
-        return false;
-    });
-
+    // السماح بتحديد النص ونسخه
+    // تم إزالة منع selectstart, copy, cut, paste
+    
     // دالة عرض التحذير الأمني
     function showSecurityAlert() {
         if (document.getElementById('security-overlay')) return;
@@ -889,7 +834,7 @@ document.head.appendChild(style);
                 <h2 style="color: white; margin-bottom: 15px;">🔒 تنبيه أمني</h2>
                 <p style="color: #e0e0e0; margin-bottom: 25px; line-height: 1.8;">
                     هذا الموقع محمي بموجب حقوق الملكية الفكرية.<br>
-                    غير مسموح بفتح أدوات المطور أو نسخ المحتوى.
+                    غير مسموح بفتح أدوات المطور.
                 </p>
                 <p style="color: #ffd700; font-size: 14px;">
                     سيتم إعادة التوجيه تلقائياً...
@@ -987,6 +932,13 @@ function showDashboard() {
             <i class="fas fa-crown"></i>
         </h1>
 
+        <!-- رابط مجموعة الواتساب -->
+        <a href="https://chat.whatsapp.com/E3ldyioYKau6briyiP8lCB?mode=gi_t" target="_blank" class="whatsapp-link" style="text-decoration: none;">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">انضم إلى مجموعتنا على واتساب</span>
+            <span class="whatsapp-badge"><i class="fas fa-plus"></i> انضم الآن</span>
+        </a>
+
         <!-- إهداء روح الشهيد - بنفس تنسيق الموقع -->
         <div class="martyr-dedication">
             <div class="martyr-icon">
@@ -1029,25 +981,13 @@ function showDashboard() {
             </a>
         </div>
 
-        <!-- توقيع المهندس نادر الجديد -->
+        <!-- التوقيع الأصلي المعدل (بسيط وأنيق) -->
         <div class="signature">
-            <div class="signature-content">
-                <div class="signature-icon">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <div class="signature-text">
-                    <span class="engineer">المهندس</span>
-                    <span class="nader">نادر</span>
-                </div>
-                <div class="signature-year">
-                    <i class="far fa-calendar-alt"></i> 2026
-                </div>
-                <div class="signature-decoration">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <i class="fas fa-crown crown-icon"></i>
+            <span class="engineer">المهندس</span>
+            <span class="nader">نادر</span>
+            <i class="fas fa-code"></i>
+            <span>© 2026</span>
         </div>
     `);
 }
@@ -1062,6 +1002,14 @@ function showSemester(sem) {
             <i class="fas fa-arrow-right"></i>
             رجوع
         </a>
+
+        <!-- رابط مجموعة الواتساب -->
+        <a href="https://chat.whatsapp.com/E3ldyioYKau6briyiP8lCB?mode=gi_t" target="_blank" class="whatsapp-link" style="text-decoration: none;">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">انضم إلى مجموعتنا على واتساب</span>
+            <span class="whatsapp-badge"><i class="fas fa-plus"></i> انضم الآن</span>
+        </a>
+        
         <h2 class="course-title">
             الفصل ${sem === 1 ? "الأول" : "الثاني"}
         </h2>
@@ -1082,25 +1030,13 @@ function showSemester(sem) {
 
     html += `</div>
 
-        <!-- توقيع المهندس نادر الجديد -->
+        <!-- التوقيع الأصلي المعدل (بسيط وأنيق) -->
         <div class="signature">
-            <div class="signature-content">
-                <div class="signature-icon">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <div class="signature-text">
-                    <span class="engineer">المهندس</span>
-                    <span class="nader">نادر</span>
-                </div>
-                <div class="signature-year">
-                    <i class="far fa-calendar-alt"></i> 2026
-                </div>
-                <div class="signature-decoration">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <i class="fas fa-crown crown-icon"></i>
+            <span class="engineer">المهندس</span>
+            <span class="nader">نادر</span>
+            <i class="fas fa-code"></i>
+            <span>© 2026</span>
         </div>
     `;
     animatePage(html);
@@ -1113,6 +1049,13 @@ function showCourse(key, tab) {
         <a href="#semester-${key === 'biology' || key === 'chemistry' || key === 'physics' || key === 'anatomy' || key === 'physiology' || key === 'biochemistry' || key === 'med_terms' ? '1' : '2'}" class="back-button" style="display: inline-block; text-decoration: none;">
             <i class="fas fa-arrow-right"></i>
             رجوع
+        </a>
+
+        <!-- رابط مجموعة الواتساب -->
+        <a href="https://chat.whatsapp.com/E3ldyioYKau6briyiP8lCB?mode=gi_t" target="_blank" class="whatsapp-link" style="text-decoration: none;">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">انضم إلى مجموعتنا على واتساب</span>
+            <span class="whatsapp-badge"><i class="fas fa-plus"></i> انضم الآن</span>
         </a>
         
         <h2 class="course-title">
@@ -1137,25 +1080,13 @@ function showCourse(key, tab) {
 
         <div id="tabContent" class="tab-content"></div>
 
-        <!-- توقيع المهندس نادر الجديد -->
+        <!-- التوقيع الأصلي المعدل (بسيط وأنيق) -->
         <div class="signature">
-            <div class="signature-content">
-                <div class="signature-icon">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <div class="signature-text">
-                    <span class="engineer">المهندس</span>
-                    <span class="nader">نادر</span>
-                </div>
-                <div class="signature-year">
-                    <i class="far fa-calendar-alt"></i> 2026
-                </div>
-                <div class="signature-decoration">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <i class="fas fa-crown crown-icon"></i>
+            <span class="engineer">المهندس</span>
+            <span class="nader">نادر</span>
+            <i class="fas fa-code"></i>
+            <span>© 2026</span>
         </div>
     `;
 
@@ -1303,6 +1234,14 @@ function globalSearch(val) {
             <i class="fas fa-arrow-right"></i>
             رجوع
         </a>
+
+        <!-- رابط مجموعة الواتساب -->
+        <a href="https://chat.whatsapp.com/E3ldyioYKau6briyiP8lCB?mode=gi_t" target="_blank" class="whatsapp-link" style="text-decoration: none;">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">انضم إلى مجموعتنا على واتساب</span>
+            <span class="whatsapp-badge"><i class="fas fa-plus"></i> انضم الآن</span>
+        </a>
+        
         <h2 class="course-title">
             <i class="fas fa-search"></i>
             نتائج (${results.length})
@@ -1333,25 +1272,13 @@ function globalSearch(val) {
     }
 
     html += `
-        <!-- توقيع المهندس نادر الجديد -->
+        <!-- التوقيع الأصلي المعدل (بسيط وأنيق) -->
         <div class="signature">
-            <div class="signature-content">
-                <div class="signature-icon">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <div class="signature-text">
-                    <span class="engineer">المهندس</span>
-                    <span class="nader">نادر</span>
-                </div>
-                <div class="signature-year">
-                    <i class="far fa-calendar-alt"></i> 2026
-                </div>
-                <div class="signature-decoration">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+            <i class="fas fa-crown crown-icon"></i>
+            <span class="engineer">المهندس</span>
+            <span class="nader">نادر</span>
+            <i class="fas fa-code"></i>
+            <span>© 2026</span>
         </div>
     `;
 
