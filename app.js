@@ -567,6 +567,112 @@ style.textContent = `
         color: var(--text-light);
     }
     
+    /* ===== توقيع المهندس نادر الجديد ===== */
+    .signature {
+        text-align: center;
+        margin: 30px 0 10px 0;
+        padding: 20px;
+        background: linear-gradient(135deg, rgba(0,0,0,0.02), rgba(0,0,0,0.05));
+        border-radius: 50px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .signature::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        animation: signature-shine 3s infinite;
+    }
+    
+    @keyframes signature-shine {
+        0% { left: -100%; }
+        20% { left: 100%; }
+        100% { left: 100%; }
+    }
+    
+    .signature-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .signature-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(0,0,0,0.03);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(0,0,0,0.1);
+    }
+    
+    .signature-icon i {
+        font-size: 1.8rem;
+        color: #333;
+        opacity: 0.8;
+    }
+    
+    .signature-text {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #333;
+        letter-spacing: 1px;
+        background: rgba(0,0,0,0.03);
+        padding: 8px 25px;
+        border-radius: 40px;
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    
+    .signature-text .engineer {
+        color: #333;
+        font-weight: 700;
+        background: linear-gradient(135deg, #333, #000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .signature-text .nader {
+        color: #000;
+        font-weight: 900;
+        font-size: 1.6rem;
+        margin: 0 5px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .signature-year {
+        font-size: 1rem;
+        color: #666;
+        background: rgba(0,0,0,0.02);
+        padding: 5px 20px;
+        border-radius: 30px;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .signature-decoration {
+        display: flex;
+        gap: 5px;
+    }
+    
+    .signature-decoration span {
+        width: 8px;
+        height: 8px;
+        background: #333;
+        border-radius: 50%;
+        opacity: 0.3;
+    }
+    
     /* تنسيق للشاشات الصغيرة */
     @media (max-width: 768px) {
         body {
@@ -600,6 +706,24 @@ style.textContent = `
         
         .martyr-name {
             font-size: 1.1rem;
+        }
+        
+        .signature-text {
+            font-size: 1.1rem;
+            padding: 5px 15px;
+        }
+        
+        .signature-text .nader {
+            font-size: 1.3rem;
+        }
+        
+        .signature-icon {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .signature-icon i {
+            font-size: 1.4rem;
         }
     }
     
@@ -838,6 +962,12 @@ window.addEventListener('hashchange', function() {
 function animatePage(html) {
     document.getElementById("main").innerHTML = html;
     
+    // التمرير لأعلى الصفحة عند تغيير الصفحة
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    
     // تحديث الـ Hash إذا لزم الأمر (بدون إعادة تحميل)
     const currentHash = window.location.hash.substring(1);
     if (!currentHash || currentHash === 'dashboard') {
@@ -898,6 +1028,27 @@ function showDashboard() {
                 </div>
             </a>
         </div>
+
+        <!-- توقيع المهندس نادر الجديد -->
+        <div class="signature">
+            <div class="signature-content">
+                <div class="signature-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="signature-text">
+                    <span class="engineer">المهندس</span>
+                    <span class="nader">نادر</span>
+                </div>
+                <div class="signature-year">
+                    <i class="far fa-calendar-alt"></i> 2026
+                </div>
+                <div class="signature-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
     `);
 }
 
@@ -929,7 +1080,29 @@ function showSemester(sem) {
         `;
     });
 
-    html += "</div>";
+    html += `</div>
+
+        <!-- توقيع المهندس نادر الجديد -->
+        <div class="signature">
+            <div class="signature-content">
+                <div class="signature-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="signature-text">
+                    <span class="engineer">المهندس</span>
+                    <span class="nader">نادر</span>
+                </div>
+                <div class="signature-year">
+                    <i class="far fa-calendar-alt"></i> 2026
+                </div>
+                <div class="signature-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    `;
     animatePage(html);
 }
 
@@ -963,6 +1136,27 @@ function showCourse(key, tab) {
         </div>
 
         <div id="tabContent" class="tab-content"></div>
+
+        <!-- توقيع المهندس نادر الجديد -->
+        <div class="signature">
+            <div class="signature-content">
+                <div class="signature-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="signature-text">
+                    <span class="engineer">المهندس</span>
+                    <span class="nader">نادر</span>
+                </div>
+                <div class="signature-year">
+                    <i class="far fa-calendar-alt"></i> 2026
+                </div>
+                <div class="signature-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
     `;
 
     animatePage(html);
@@ -1137,6 +1331,29 @@ function globalSearch(val) {
         });
         html += '</div>';
     }
+
+    html += `
+        <!-- توقيع المهندس نادر الجديد -->
+        <div class="signature">
+            <div class="signature-content">
+                <div class="signature-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="signature-text">
+                    <span class="engineer">المهندس</span>
+                    <span class="nader">نادر</span>
+                </div>
+                <div class="signature-year">
+                    <i class="far fa-calendar-alt"></i> 2026
+                </div>
+                <div class="signature-decoration">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    `;
 
     animatePage(html);
 }
