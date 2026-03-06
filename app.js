@@ -980,15 +980,6 @@ function showDashboard() {
                 </div>
             </a>
         </div>
-
-        <!-- التوقيع الأصلي المعدل (بسيط وأنيق) -->
-        <div class="signature">
-            <i class="fas fa-crown crown-icon"></i>
-            <span class="engineer">المهندس</span>
-            <span class="nader">نادر</span>
-            <i class="fas fa-code"></i>
-            <span>© 2026</span>
-        </div>
     `);
 }
 
@@ -1028,17 +1019,7 @@ function showSemester(sem) {
         `;
     });
 
-    html += `</div>
-
-        <!-- التوقيع الأصلي المعدل (بسيط وأنيق) -->
-        <div class="signature">
-            <i class="fas fa-crown crown-icon"></i>
-            <span class="engineer">المهندس</span>
-            <span class="nader">نادر</span>
-            <i class="fas fa-code"></i>
-            <span>© 2026</span>
-        </div>
-    `;
+    html += `</div>`;
     animatePage(html);
 }
 
@@ -1079,15 +1060,6 @@ function showCourse(key, tab) {
         </div>
 
         <div id="tabContent" class="tab-content"></div>
-
-        <!-- التوقيع الأصلي المعدل (بسيط وأنيق) -->
-        <div class="signature">
-            <i class="fas fa-crown crown-icon"></i>
-            <span class="engineer">المهندس</span>
-            <span class="nader">نادر</span>
-            <i class="fas fa-code"></i>
-            <span>© 2026</span>
-        </div>
     `;
 
     animatePage(html);
@@ -1270,17 +1242,6 @@ function globalSearch(val) {
         });
         html += '</div>';
     }
-
-    html += `
-        <!-- التوقيع الأصلي المعدل (بسيط وأنيق) -->
-        <div class="signature">
-            <i class="fas fa-crown crown-icon"></i>
-            <span class="engineer">المهندس</span>
-            <span class="nader">نادر</span>
-            <i class="fas fa-code"></i>
-            <span>© 2026</span>
-        </div>
-    `;
 
     animatePage(html);
 }
